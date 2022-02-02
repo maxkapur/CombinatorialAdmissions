@@ -251,7 +251,20 @@ is the optimal solution.
 Hope is not lost. We can still find the optimal solution in $O(h^2 m + m\log m)$ time, as we will now show.
 
 \ifEN \subsection{Solution}  \else \subsection{풀이} \fi
-The following theorem states that the solution to Alma's problem possesses a special structure: An optimal portfolio of size $h+1$ includes an optimal portfolio of size $h$ as a subset. 
+It turns out that the solution to Alma's problem possesses a special structure: An optimal portfolio of size $h+1$ includes an optimal portfolio of size $h$ as a subset. To show this result, we need to introduce some new notation. For an application portfolio $\mathcal{X}$, the random variable $X  = \max\{ t_j Z_j : j \in \mathcal{X}$ represents the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. It is also helpful to define $\Delta v(\mathcal{X}, j)$ as the utility gained by adding $c_j$ to the portfolio $\mathcal{X}$. That is, 
+\begin{align} \Delta v(\mathcal{X}, j) &= v(\mathcal{X} \cup \{j\})  - v(\mathcal{X}) \\
+&= (1 - f_j) v(\mathcal{X}) + f_j \operatorname{E}[\max\{X, t_j\}] - v(\mathcal{X}) \\
+&= f_j \operatorname{E}[\max\{0, t_j - X\}]  \label{emaxtjminusX}
+\end{align}
+
+\begin{lemma}
+For all $\mathcal{X}\subseteq \mathcal{C}$ and $i, j \in \mathcal{C}$, $\Delta v(\mathcal{X}, j) \geq \Delta v(\mathcal{X} \cup \{i\}, j)$. 
+\end{lemma}
+\begin{proof}
+If a new school $i$ is added to $\mathcal{X}$, then the expected value of $X$ can only increase. Likewise, the probability that Alma is admitted to at least one school in $\mathcal{X}\cup\{i\}$ that she prefers to $j$ must be higher than in $\mathcal{X}$. Therefore, the maximum in \eqref{emaxtjminusX} is more likely to occur in the second entry, and achieves a lower value. 
+\end{proof}
+Now we may present the main result.
+
 \begin{theorem}[Nestedness of optimal application portfolios] \label{nestedapplication}
 Let $\mathcal{X}_h$ denote Alma’s optimal application portfolio when the application limit is $h$. If each $\mathcal{X}_h$ is unique,
 \begin{equation}
@@ -259,10 +272,9 @@ Let $\mathcal{X}_h$ denote Alma’s optimal application portfolio when the appli
 \end{equation}
 If the optimal portfolios are not unique, then there is a sequence of optimal portfolios satisfying the above.
 \end{theorem}
-\begin{proof}
-The proof is a nested induction. First, we show that $\mathcal{X}_1 \subset \mathcal{X}_2$ (step 1) and $\mathcal{X}_1 \subset \mathcal{X}_{h-1} \implies \mathcal{X}_1 \subset \mathcal{X}_{h}$ for $h = 3 \dots m$ (step 2). We then assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_{h-1}$, and show that $\mathcal{X}_{h-n} \subset \mathcal{X}_h \implies \mathcal{X}_{h-n+1} \subset \mathcal{X}_h $ for $h=3\dots m$ and $n = 2 \dots (h-1)$ (step 3). It follows that $\mathcal{X}_{h-1} \subset \mathcal{X}_h$ for $h = 2 \dots m$, which completes the proof.
+\begin{proof} By nested induction on $h$ and the number of schools. Let $\mathcal{C}^{(i)} = \{1 \dots i\}$ denote the submarket consisting of the first $i$ schools, and let $\mathcal{X}_h^{(i)}$ denote the optimal $h$-portfolio over the schools in $\mathcal{C}^{(i)}$, which is defined for $i = 1 \cdots m$ and $h = 1 \cdots i$. First, we will show the base case  $\mathcal{X}_1 \subset \mathcal{X}_2$ holds for any market (step 1). Then, we will show that if the optimal portfolios over $\mathcal{C}^{(i)}$ are nested, then so are the optimal portfolios over $\mathcal{C}^{(i+1)}$ (step 2), and therefore those over $\mathcal{C}$ itself. 
 
-(Step 1.) To get a contradiction, suppose that the unique optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
+(Step 1.) To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
 \begin{equation}v(\mathcal{X}_1 )  = f_j t_j > v(\{k\}) = f_k t_k\end{equation}
 and
 \begin{align}
@@ -274,27 +286,43 @@ v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
 \end{align}
 yielding a contradiction.
 
-
-%Suppose that $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. It is clear that $j \in \argmax_k \{f_k t_k\}$. Next, we have $v(\mathcal{X}_2) = (1 - f_l) f_k t_k +f_l t_l$. If $l=j$ then there is nothing left to show. If not, then $k$ must be chosen to maximize $f_k t_k$; one such choice is $k=j$. 
-
-(Step 2.) Label the schools in $\mathcal{X}_h$ as $[1] \dots [h]$, where $t_{[1]} \leq \dots \leq t_{[h]}$. Then
-\begin{equation}
-v(\mathcal{X}_h) = ( 1 - f_{[h]}) v(\mathcal{X}_h \setminus [h]) + t_{[h]} f_{[h]}
+(Step 2.) Assume that
+\begin{equation} \label{himinusonenested}
+\mathcal{X}_1^{(i-1)} \subset \cdots \subset \mathcal{X}_{h-1}^{(i-1)}
 \end{equation}
-If $[h] = j$, then this step is complete. If not, then $\{[1]\dots  [h-1]\}$ must form an optimal $(h-1)$-portfolio over $\mathcal{C}\setminus [h]$. By assumption, this portfolio includes the optimal $1$-portfolio over $\mathcal{C}\setminus [h]$, namely $\mathcal{X}_1 = \{j\}$. 
-
-(Step 3.) Label the schools in $\mathcal{X}_h \setminus \mathcal{X}_{h-n}$  as $(1) \dots (n)$, where $t_{(1)} \leq \dots \leq t_{(n)}$. If $(n) \in  \mathcal{X}_{h-n+1}$, then the inductive hypothesis implies $\mathcal{X}_{h-n+1} = \mathcal{X}_{h-n} \cup \{(n)\}$ and there is nothing left to show. If not, then write 
-\begin{equation}
-v(\mathcal{X}_h) = (1 - f_{(n)}) v\bigl( \mathcal{X}_{h-n}\cup\{(1) \dots (n-1)\}\bigr) + f_{(n)} \operatorname{E}\bigl[\max\{X_{h-n}, t_{(n)}\}\bigr]
+We want to show that
+\begin{equation} \label{hplusoneiplusonenested}
+\mathcal{X}_1^{(i)} \subset \cdots \subset \mathcal{X}_{h}^{(i)}
 \end{equation}
-where the random variable $X_{h-n}$ denotes the value achieved by the portfolio $\mathcal{X}_{h-n}$. Once $ \mathcal{X}_{h-n}$ and $(n)$ are fixed, the remaining schools must maximize $v(\mathcal{X}_{h-n}\cup\{(1) \dots (n-1)\})$. That is, they form an optimal $(h-1)$-portfolio, call it $\mathcal{Y}_{h-1}$, over $\mathcal{C}\setminus (n)$. By the inductive hypothesis, $\mathcal{Y}_{h-1}$ is a superset of the optimal $(h-n+1)$-portfolio, call it $\mathcal{Y}_{h-n+1}$, over $\mathcal{C}\setminus (n)$. But $\mathcal{X}_{h-n+1}$ is optimal over \emph{all} of $\mathcal{C}$ and does not include $(n)$, so we can take $\mathcal{Y}_{h-n+1} = \mathcal{X}_{h-n+1} $, which completes this step.
+We will proceed by induction. By the argument of step 1, $\mathcal{X}_1^{(i)} \subset  \mathcal{X}_2^{(i)}$. Now assume that $\mathcal{X}_1^{(i)} \subset  \cdots \subset \mathcal{X}_{j-1}^{(i)}$, and we will show that $\mathcal{X}_{j-1}^{(i)} \subset \mathcal{X}_{j}^{(i)}$. 
+
+If $\mathcal{X}_{j}^{(i)}$ contains $i$, then
+\begin{equation}
+v(\mathcal{X}_{j}^{(i)}) = (1 - f_i) v(\mathcal{X}_{j}^{(i)}\setminus i) + f_i t_i
+\end{equation}
+Optimality now requires that $\mathcal{X}_{j}^{(i)}\setminus i = \mathcal{X}_{j-1}^{(i-1)}$. If $\mathcal{X}_{j-1}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j-1}^{(i-1)}  = \mathcal{X}_{j-1}^{(i)}$ and we are done. If $\mathcal{X}_{j-1}^{(i)}$ contains $i$, then the argument above implies that $\mathcal{X}_{j-1}^{(i)} =  \mathcal{X}_{j-2}^{(i-1)}\cup\{i\}$. Since $i \in \mathcal{X}_{j}^{(i)}$ and $\mathcal{X}_{j-2}^{(i-1)} \subset  \mathcal{X}_{j-1}^{(i-1)}$ by the inductive hypothesis, the statement follows. 
+
+If $\mathcal{X}_{j}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j}^{(i)} = \mathcal{X}_{j}^{(i-1)}$ since the former is optimal over a larger set of schools. It follows by \eqref{himinusonenested} that $\mathcal{X}_{j-1}^{(i-1)} \subset \mathcal{X}_{j}^{(i)}$. 
+% This completes the proof because ...·
 \end{proof}
+
+
+
+
+
+%
+%For the inductive step, assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and let $\mathcal{X}_{h+1} = \mathcal{X}_h\cup \{j\}$ denote the best nested optimal $(h+1)$-portfolio, where $k = \argmax_{k \in \mathcal{C} \setminus \mathcal{X}_h }  \{ \Delta v(\mathcal{X}_h, k) \}$. We will show that $\mathcal{X}_{h+1}$ is globally optimal. To get a contradiction, suppose that $v(\mathcal{Y}_{h+1}) > v(\mathcal{X}_{h+1})$ for some other $(h+1)$ portfolio.
+%
+%Let $\mathcal{Y}_i$ denote the optimal $i$-portfolio comprised only of schools in $\mathcal{Y}_{h+1}$. Applying the inductive hypothesis, we have $\mathcal{Y}_1 \subset \cdots \subset \mathcal{Y}_{h+1}$. We can express the valuation of $\mathcal{Y}_{h+1}$ as follows.
+%\begin{align}
+%\mathcal{Y}_{h+1} &= 
+%\end{align}
 
 Applying the result above yields an efficient algorithm for the optimal portfolio: Start with the empty set and add schools one at a time, maximizing $v(\mathcal{X}\cup \{k\})$ at each addition. 
 
 \begin{algorithm}[H] 
   %\DontPrintSemicolon
-\caption{Dynamic programming algorithm for Alma’s problem.} \label{dynamicprogram}
+\caption{Optimal portfolio algorithm for Alma’s problem.} \label{dynamicprogram}
 \KwData{Utility values $t \in[0, \infty)^m$, admissions probabilities $f \in [0, 1]^m$.}
 Reindex schools in ascending order of $t$\;
 $\mathcal{X} \gets \O$\;
