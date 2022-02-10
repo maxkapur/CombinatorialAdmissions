@@ -52,7 +52,7 @@
 }
 \fi
 
-\ifEN {} \else \renewcommand*{\proofname}{증명\@}  \fi
+%\ifEN {} \else \renewcommand*{\proofname}{증명\@}  \fi
 
 
 
@@ -88,7 +88,7 @@ This study considers the efficiency of a college admissions market in which the 
 \item \label{feat-constrainedapp} Students are \emph{constrained} in the number of schools to which they can apply.  
 \end{enumerate}
 } \else {
-본 연구는 다음과 같은 세가지 특징이 동시에 공존하는 대학 입시 시장을 고려한다.
+본 연구는 다음과 같은 세가지 특징이 동시에 공존하는 대학 입학 시장을 고려한다.
 \begin{enumerate}
 \item 대학교는 신입생 집합에 대해 조합적인 선호순위를 가진다.
 \item 학생이 지원할 수 있는 대학의 개수는 제한된다.
@@ -97,7 +97,7 @@ This study considers the efficiency of a college admissions market in which the 
 } \fi
 The model contains finite sets $\mathcal{S} = \{1 \dots n\}$ of students and $\mathcal{C} = \{1 \dots m\}$ of colleges. The name of student $i$ is $s_i$, and the name of college $j$ is $c_j$. 
 
-Feature \ref{feat-combipref} says that each school has a preference order $\succapprox_j$ over the set of admitted-student cohorts. Note that $\succsim_j$ orders sets of \emph{admitted} students, with the understanding that only a subset of admits will actually enroll at the college. The college-specific optimization problem that produces $\succapprox_j$ is considered exogenous to our model.
+Feature \ref{feat-combipref} says that each school has a preference order $\succapprox_j$ over the set of admitted-student cohorts. Note that $\succsim_j$ orders sets of \emph{admitted} students, with the understanding that only a subset of admits will actually enroll at the college. The college-specific optimization problem that produces $\succapprox_j$ is considered exogenous to our model. This assumption is reasonable because in this model, students' preferences are deterministic. 
 
 Feature \ref{feat-uncertainty} arises in real admissions markets because there is asymmetry in the information that students have about themselves and the information that colleges collect about students in the application process. For example, students may have a rough idea of the quality of their personal essay, but the college's evaluation of the same will depend on the biases and mood of the reader. We model this asymmetry by regarding each $\succapprox_j$ as a random variable whose space is $2^{\mathcal{S}}!$. Specific realizations of $\succapprox_j$ are denoted $\succsim_j$. Notice that this definition alone does not impose any constraint on whether it is students who possess complete information about their qualifications and colleges who add measurement noise, or vice-versa. However, the following assumption (which greatly simplifies the subsequent analysis of student utility) implies that the noise is added by the colleges:
 \begin{assumption} \label{preforderdrawnindep}
@@ -110,13 +110,13 @@ Let $\mathcal{X}_{\setminus i}$ denote the application decisions of students oth
 \begin{equation}
 f_{ij}(\mathcal{X}_{\setminus i}) = \operatorname{Pr}\left[\;\parbox{23em}{$s_i$ admitted to $c_j$~\textbar~\\$s_i$ applies to $c_j$ and others’ application decisions are $\mathcal{X}_{\setminus i}$}\;\right] \in [0, 1]
 \end{equation}
+\end{assumption}
 
-\end{assumption}
-\begin{assumption}[$c_1$ fills capacity] \label{c1fillcap}
-\begin{equation}
-|\{i' \neq i : j \in \mathcal{X}_{i'}\}| < q \implies f_{ij}(\mathcal{X}_{\setminus i}) = 1
-\end{equation}
-\end{assumption}
+%\begin{assumption}[$c_1$ fills capacity] \label{c1fillcap}
+%\begin{equation}
+%|\{i' \neq i : j \in \mathcal{X}_{i'}\}| < q \implies f_{ij}(\mathcal{X}_{\setminus i}) = 1
+%\end{equation}
+%\end{assumption}
 Going forward, we interact with the distributions of the random variables $\succapprox_j$ primarily via the function $f(\cdot)$. However, it is worth bearing in mind that $f_{.j}$ is a low-dimension projection of $c_j$'s true preference distribution. For example, suppose that $n=4$, $q=2$, and when all four students apply to $c_j$, $f_{.j} = (\tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{2}, \tfrac{1}{2})$. This could mean that $c_j$ prefers all admitted-student cohorts with equal probability, or it could mean that $c_j$'s preferred cohort is $\{s_1, s_2\}$ with probability $1/2$ and $\{s_3, s_4\}$ with probability $1/2$. 
 
 We model feature \ref{feat-constrainedapp} by allowing each student to apply to only $h$ colleges. Let $t_{ij}$ denote the utility that $s_i$ receives from attending $c_j$.  Assume that students receive zero utility if they do not attend college. Then we regard the expected utility associated with the application portfolio $\mathcal{X}_i$ as the value it provides the student.
@@ -187,7 +187,7 @@ As this section considers a single student’s optimization problem, we drop sub
 \ifEN \subsection{Problem formulation}  \else \subsection{모형화} \fi
 Consider a college admissions market with $m$ schools, $\mathcal{C} = \{ 1 \dots m\}$. The $j$th school is named $c_j$. By government regulation, students are allowed to apply to no more than $h$ schools. (In the Korean case, $m=202$ and $h=3$.) We consider the optimal application strategy for a single student, whom we will call Alma.
 
-For $j=1\dots m$, let $t_j > 0$ denote the utility that Alma receives from attending $c_j$, and let $f_j$ denote the probability that she is admitted if she applies. Let the random variable $Z_j$ equal one if Alma gets into $c_j$ and zero otherwise.  We assume that Alma’s admissions outcome at each school is independent of her outcome at the other schools.\footnote{This assumption is appropriate when $f$ gives the admissions probabilities \emph{specifically} for Alma. Recall that in the equilibrium model, the entries of $f = f_{i}(\mathcal{X}_{\setminus i})$ depend on Alma’s index $i$ and the application decisions of students other than Alma.} Thus $Z$ is a vector of independent Bernoulli variables with probabilities given by $f$. To ease notation, let $c_0$ denote Alma's outcome if she does not get into any college, where $t_0 = 0$ and $f_0 = 1$. Sort the schools so that $t_{j-1} \leq t_j$ for $j=1 \dots m$.
+For $j=1\dots m$, let $t_j > 0$ denote the utility that Alma receives from attending $c_j$, and let $f_j$ denote the probability that she is admitted if she applies. Let the random variable $Z_j$ equal one if Alma gets into $c_j$ and zero otherwise.  We assume that Alma’s admissions outcome at each school is independent of her outcome at the other schools.\footnote{This assumption is appropriate when $f$ gives the admissions probabilities \emph{specifically} for Alma. Recall that in the equilibrium model, the entries of $f = f_{i}(\mathcal{X}_{\setminus i})$ depend on Alma’s index $i$ and the application decisions of students other than Alma. Once these factors are accounted for, the independence of the $Z_j$ is a direct consequence of Assumption \ref{preforderdrawnindep}. } Thus $Z$ is a vector of independent Bernoulli variables with probabilities given by $f$. To ease notation, let $c_0$ denote Alma's outcome if she does not get into any college, where $t_0 = 0$ and $f_0 = 1$. Sort the schools so that $t_{j-1} \leq t_j$ for $j=1 \dots m$.
 %For the \emph{generic} student, when $f_j$ is simply $c_j$'s acceptance rate, admissions outcomes will almost certainly correlate across schools.
 
 Let $\mathcal{X}$ denote the set of schools to which Alma applies, called her \emph{application portfolio}, and let $x$ denote the same encoded as a binary vector, where $x_j=\mathbf{1}[j\in \mathcal{X}]$ for $j=1\dots m$. The expected utility Alma receives from $\mathcal{X}$ is called the portfolio’s \emph{valuation}.
@@ -791,28 +791,156 @@ If $x$ is a binary vector---that is, a pure-strategy equilibrium---then these ar
 
 
 \section{Computational results}
+Even in the two-school model, in which only $c_1$ has a nontrivial preference order, the high dimension of $\succapprox$ and the associated probability space presents a challenging modeling problem. In this chapter, we explore two parameterizations of $\succapprox$ that are tractable enough to enable the computation of equilibria and the associated efficiency measures but also conformable to realistic recruitment goals such as aggregate student talent and diversity. 
 
 \subsection{Additive school utility with homogeneous risk aversion}
+
+
 \subsubsection{Existence of sorted equilibrium}
 \subsubsection{Bounds on the efficiency measures}
 \subsubsection{Sorted equilibrium algorithm}
 \subsubsection{Computational experiments}
 
 \subsection{Combinatorial admissions with uncertainty from QP}
+Previous research in college course enrollment has used a quadratic objective function to model complementarities in students' preferences over combinations of courses. In the course allocation problem, the decision variable is a set of deterministic course schedules, and it is possible to obtain an equilibrium course schedule with several desirable fairness properties by having students bid on courses using an artificial currency and computing course prices using a tat\^onnment-like step rule (Othman et al. 2010; Budish 2011).
+
+Our environment adds the new element of uncertainty, as well as being a sequential game. 
+
+In this section, we use a quadratic objective function with two terms to model combinatorial school preferences. We simulate the randomness in school preferences by solving the continuous relaxation of the quadratic program (QP) associated with $c_1$'s optimal entering class.
+
 \subsubsection{Model}
+Let $z \in \{0, 1\}^n$ denote the vector of students who attend $c_1$. We suppose that $c_1$'s preference order is given by the concave objective function
+\begin{equation} w(z) = (1 -\gamma) a \cdot z - \gamma \| b - z \|_2^2 \end{equation}
+where $a, b \in \{c: \sum c_i = n, c \geq 0\}$ and $\gamma \in [0, 1]$. $c_1$ then may determine its entering class by solving the following optimization problem.
+\begin{align} \text{maximize}~~w(z) \quad
+\text{subject to}~~  \sum z_i \leq q ,~~ z \in \{0, 1\}^n
+\end{align}
+The first modification we make to this basic template is to model uncertainty in the preference order by allowing $z$ to vary continuously zero and one. This yields the following convex QP:
+\begin{align}\label{solvemefory}
+\text{maximize}~~  w(z) \quad
+\text{subject to}~~  \sum z_i \leq q , ~~\mathbf{0} \leq z \leq \mathbf{1}
+\end{align}
+Then the expected ideal entering class is $\bar y = z^*$, where $z^*$ is the solution to \eqref{solvemefory}.
+
+We interpret $w(z)$ as follows. The first term, $a \cdot z$, is called the \emph{substitution term}, as it treats students $i$ and $j$ as interchangeable in the ratio between the corresponding coefficients. For example, if $\gamma = 0$ and $c_1$ has a choice between two students $s_i$ and $s_j$ for whom $w_i > w_j$, it will always choose $s_i$. On the other hand, the quadratic term of $w(z)$ is  called the \emph{complementarity term} and measures the Euclidean distance between $z$ and the point $b$. The effect of this term is to pull the admitted student vector toward the interior of the positive orthant. Thus, as $\gamma$ increases, $c_1$ favors admitting $s_i$ and $s_j$ each to some extent in the continuous relaxation of the problem. Requiring the elements of $b$ to sum to $n$ ensures that the attracting point is on the outside of the constraint $\sum z_i \leq q$ so that this equation always holds with equality at the optimum. 
+
+Now, we need to construct the admissions probability function $f(x)$. We begin by modifying \eqref{solvemefory} to read $\mathbf{0} \leq z \leq x$. If $x$ is binary, then this constraint simply says that $c_1$ can only admit students who apply. If $s_i$ employs a mixed strategy, say $x_i = 0.5$, then this constraint says that $c_1$ can only admit her ``to the extent'' of $z = 0.5$. Next, recall that $f_i(x_{\setminus i})$ is a conditional probability, namely, the probability that $s_i$ is admitted to $c_1$ if she applies with certainty. Therefore, its entries are determined by solving the counterfactual QP in which $x_i =1$ and $x_{\setminus i}$ is unchanged. With these observations, we are ready to define $f(x)$ for the quadratic preference environment.
+
+\begin{definition}[Admissions probability function from QP]
+Given an application vector $x$, the admissions probability function $f(x)$ is defined as follows: For $i = 1 \dots n$, $f_i(x_i) = z^*(i)_i$, where $z^*(i)$ is the solution to the following QP. 
+\begin{align} \label{solvemeforfx}
+\begin{split}
+\text{maximize}\quad & (1 -\gamma) a \cdot z - \gamma \| b - z \|_2^2 \\
+\text{subject to}\quad & \sum z_i \leq q \\
+& 0 \leq z_{i'} \leq x_{i'}, \quad i' \neq i\\
+& 0 \leq z_i \leq 1
+\end{split}
+\end{align}
+The expected ideal entering class is defined as $\bar y = f(\mathbf{1})$. 
+\end{definition}
+Nominally, computing $f(x)$ requires solving $n$ QPs. The computation time can be reduced by first solving
+\begin{align}\label{computationtimereducer}
+\text{maximize}~~  w(z) \quad
+\text{subject to}~~  \sum z_i \leq q , ~~\mathbf{0} \leq z \leq x
+\end{align}
+and inspecting the dual variables $\lambda$ associated the constraint $z \leq x$. If $\lambda_i = 0$, then relaxing this constraint yields no improvement in the optimal value of $w(z)$, and the optimal $z$-vectors for \eqref{solvemeforfx} and \eqref{computationtimereducer} are identical.
+
+\subsubsection{Equilibrium computation}
+To compute mixed-strategy equilibria in the quadratic preference environment, we start with an arbitrary strategy vector $x$ and adjust it according to a decreasing step rule reminiscent of projected gradient descent.
+
+Let $\operatorname{Box}(x)$ denote the projection of the vector $x$ to the $1$-hypercube:
+\begin{equation}\operatorname{Box}(x)_i = \max\bigl\{0, \min\{1, x_i \}\bigr\}, \end{equation}
+Observe that a mixed strategy can be optimal for $s_i$ only if $f_i = t_i$. If $f_i  - t_i \gtrless 0$, then $s_i$ can improve her utility by choosing $x_i = \operatorname{}\limits^1_0$. Therefore, it is not difficult to see that $x$ is an equilibrium if and only if
+\begin{equation}x = \operatorname{Box}\bigl[x + (f(x) - t)\bigr] \end{equation}
+Thus, we use the following intuitive notion of approximate equilibrium as our convergence criterion.
+\begin{definition}[$\varepsilon$-approximate equilibrium]
+For a given market, $x$ is called an $\varepsilon$-approximate equilibrium if and only if
+\[ \Bigl|x_i - \operatorname{Box}\bigl[x_i + (f_i(x_{\setminus i}) - t_i)\bigr] \Bigr| \leq \epsilon, \quad i = 1\dots n\]
+\end{definition}
+We search for equilibria by generating an arbitrary mixed-strategy vector $x$ and updating in the direction of $f(x) - t$, as described in the following algorithm. The choice of step size ensures that, given infinite iterations, the algorithm can explore the entirety of the feasible space while refraining from cycling. Rather than iterating continuously from a single initial point, in our experiments, it proved more effective to terminate the search and choose a new seed point when the algorithm fails to converge within several iterations. 
+
+\begin{algorithm}[H] 
+  %\DontPrintSemicolon
+\caption{Equilibrium algorithm for quadratic school preferences.} \label{eqalgoquadschoolpref}
+\KwData{Market parameters $t \in[0, 1]^n$, $a, b \in [0, \infty)^n$, $q \leq n$; step parameters $\alpha > 0, \beta \in (0, 1]$; tolerance $\epsilon > 0$.}
+\For{$j= 1 \cdots J$}
+{
+    $x^{(0)} \gets$ an arbitrary vector in $[0, 1]^n$\;
+    \For{$k= 1 \cdots K$}
+    {
+         $x^{(k)} \gets \operatorname{Box}\Bigl[x^{(k-1)} + \dfrac{\alpha}{k^\beta} \bigl(f(x^{(k-1)}) - t\bigr)\Bigr]$\;
+         \lIf{$ \bigl|x_i^{(k)} -x_i^{(k-1)} \bigr| \leq \epsilon, i = 1\dots n$}
+         {
+         	    \Return{$x^{(k)}$}
+         }
+    }
+}
+\end{algorithm}
+
+We were able to obtain a $10^{-5}$-approximate equilibrium in 90 percent of our synthetic instances using the parameters $\alpha = 10$, $\beta = 0.01$, $J = 3$, and $K = 30$.
+
 \subsubsection{Computational experiments}
+We consider two experiments. In the heterogeneity experiment, we fix the value of $\gamma$ to $0.5$ and the \emph{expected value} of $t_i$ to $0.5$. We vary the \emph{variance} of $t_i$ by drawing $t_i$ independently from the $\operatorname{Beta}(B, B)$ distribution, where $1/B$ itself is drawn randomly from $\operatorname{Uniform}(0, 1)$.
 
+In the complementarity experiment, we fix the distribution of $t_i$ to $\operatorname{Beta}(10, 10)$ and vary $\gamma$ by drawing it randomly from $\operatorname{Uniform}(0, 1)$.
 
+In all cases, $a, b, q$, and $n$ are \dots and we create 200 instances. 
+
+We analyze the results graphically. T-tests show that convergence failures do not depend statistically on the experimental variables.
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-S.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-T.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-U.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-k.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-S.pdf}\end{center}
+  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-T.pdf}\end{center}
+  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-U.pdf}\end{center}
+  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\begin{figure}[h!]
+  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-k.pdf}\end{center}
+  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+\end{figure}
+
+\pagebreak
 \ifEN \section{References} \else \section{참고문헌} \fi
 \noindent
 
 \parskip 0em
 \leftskip 2em
 \parindent -2em
-Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122, no. 2: 225--81. \url{https://doi.org/10.1086/675503}. 
+Budish, Eric. 2011. ``The Combinatorial Assignment Problem: Approximate Competitive Equilibrium from Equal Incomes.'' \emph{Journal of Political Economy} 119(6): 1061--1103. \url{https://doi.org/10.1086/664613}. 
 
-Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122, no. 2: 225--81. \url{https://doi.org/10.1086/675503}. 
+Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122(2): 225--81. \url{https://doi.org/10.1086/675503}. 
 
+Othman, Abraham, Eric Budish, and Tuomas Sandholm. 2020. ``Finding Approximate Competitive Equilibria: Efficient and Fair
+Course Allocation.'' In \emph{Proceedings of 9th International Conference on Autonomous Agents and Multiagent Systems.} New York: ACM. \url{https://dl.acm.org/doi/abs/10.5555/1838206.1838323}.
 
 \end{document}  
 
