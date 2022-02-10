@@ -272,9 +272,9 @@ Let $\mathcal{X}_h$ denote Alma’s optimal application portfolio when the appli
 \end{equation}
 If the optimal portfolios are not unique, then there is a sequence of optimal portfolios satisfying the above.
 \end{theorem}
-\begin{proof} By nested induction on $h$ and the number of schools. Let $\mathcal{C}^{(i)} = \{1 \dots i\}$ denote the submarket consisting of the first $i$ schools, and let $\mathcal{X}_h^{(i)}$ denote the optimal $h$-portfolio over the schools in $\mathcal{C}^{(i)}$, which is defined for $i = 1 \cdots m$ and $h = 1 \cdots i$. First, we will show the base case  $\mathcal{X}_1 \subset \mathcal{X}_2$ holds for any market (step 1). Then, we will show that if the optimal portfolios over $\mathcal{C}^{(i)}$ are nested, then so are the optimal portfolios over $\mathcal{C}^{(i+1)}$ (step 2), and therefore those over $\mathcal{C}$ itself. 
+\begin{proof} By induction on $h$.
 
-(Step 1.) To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
+(Base case.)  First, we will show that  $\mathcal{X}_1 \subset \mathcal{X}_2$. To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
 \begin{equation}v(\mathcal{X}_1 )  = f_j t_j > v(\{k\}) = f_k t_k\end{equation}
 and
 \begin{align}
@@ -284,27 +284,72 @@ v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
 &= f_j (1- f_l) t_j + f_l t_l  \\
 &> f_k (1- f_l) t_k + f_l t_l  = v(\mathcal{X}_2)
 \end{align}
-yielding a contradiction.
+which is a contradiction.
 
-(Step 2.) Assume that
-\begin{equation} \label{himinusonenested}
-\mathcal{X}_1^{(i-1)} \subset \cdots \subset \mathcal{X}_{h-1}^{(i-1)}
-\end{equation}
-We want to show that
-\begin{equation} \label{hplusoneiplusonenested}
-\mathcal{X}_1^{(i)} \subset \cdots \subset \mathcal{X}_{h}^{(i)}
-\end{equation}
-We will proceed by induction. By the argument of step 1, $\mathcal{X}_1^{(i)} \subset  \mathcal{X}_2^{(i)}$. Now assume that $\mathcal{X}_1^{(i)} \subset  \cdots \subset \mathcal{X}_{j-1}^{(i)}$, and we will show that $\mathcal{X}_{j-1}^{(i)} \subset \mathcal{X}_{j}^{(i)}$. 
+(Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show that  $\mathcal{X}_h \subset  \mathcal{X}_{h+1}$. Pick $j \in \mathcal{X}_{h+1} \setminus \mathcal{X}_h$ and let $\mathcal{Y}_h = \mathcal{X}_{h+1} \setminus j$.
+Also, for each portfolio $\mathcal{X}$, let the random variable $X = \max\{t_j Z_j : j \in \mathcal{X}\}$ denote the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. 
 
-If $\mathcal{X}_{j}^{(i)}$ contains $i$, then
-\begin{equation}
-v(\mathcal{X}_{j}^{(i)}) = (1 - f_i) v(\mathcal{X}_{j}^{(i)}\setminus i) + f_i t_i
-\end{equation}
-Optimality now requires that $\mathcal{X}_{j}^{(i)}\setminus i = \mathcal{X}_{j-1}^{(i-1)}$. If $\mathcal{X}_{j-1}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j-1}^{(i-1)}  = \mathcal{X}_{j-1}^{(i)}$ and we are done. If $\mathcal{X}_{j-1}^{(i)}$ contains $i$, then the argument above implies that $\mathcal{X}_{j-1}^{(i)} =  \mathcal{X}_{j-2}^{(i-1)}\cup\{i\}$. Since $i \in \mathcal{X}_{j}^{(i)}$ and $\mathcal{X}_{j-2}^{(i-1)} \subset  \mathcal{X}_{j-1}^{(i-1)}$ by the inductive hypothesis, the statement follows. 
-
-If $\mathcal{X}_{j}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j}^{(i)} = \mathcal{X}_{j}^{(i-1)}$ since the former is optimal over a larger set of schools. It follows by \eqref{himinusonenested} that $\mathcal{X}_{j-1}^{(i-1)} \subset \mathcal{X}_{j}^{(i)}$. 
-% This completes the proof because ...·
+If the theorem is false, then it must be the case that both $v(\mathcal{X}_h) > v(\mathcal{Y}_h)$ and $v(\mathcal{X}_{h+1}) > v(\mathcal{X}_h \cup\{j\})$. That is,
+\begin{align}
+&&v(\mathcal{X}_{h+1}) = v(\mathcal{Y}_h \cup\{j\}) &> v(\mathcal{X}_h \cup\{j\}) \\
+\iff \quad&& (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &> (1 - f_j) v(\mathcal{X}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+&&&\geq (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+\implies \quad && \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr]\\
+\implies \quad && \operatorname{E}\bigl[ \max\{Y_h - t_j, 0 \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h- t_j, 0 \} \bigr]
+\end{align}
+On the other hand, 
+\begin{align}
+&&\Delta v(\mathcal{Y}_h, j) &> \Delta v(\mathcal{X}_h, j) \\
+\implies \quad && \operatorname{E}\bigl[ \max\{0, t_j - Y_h \} \bigr] &>  \operatorname{E}\bigl[ \max\{0, t_j - X_h \} \bigr]
+\end{align}
+(WIP.)  
 \end{proof}
+
+
+%
+%This says that if Alma is guaranteed admission to $c_j$ and allowed to choose $h$ additional schools to apply to, she would do better by choosing $\mathcal{Y}_h$ than $\mathcal{X}_h$. 
+%If $t_k > t_j$ for all $k \in \mathcal{Y}_h$, then the value of $\max\{Y_h, t_j \} $ differs from that of $Y_h$ only when Alma is rejected from all schools in $Y_h$:
+%\begin{equation} \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] = v(\mathcal{Y}_h) + t_j \prod_{k \in \mathcal{Y}_h} (1 -f_k)
+%\end{equation}
+%Meanwhile, since being guaranteed admission to $t_k$ improves the value of $X_h$ in this case,
+%\begin{equation} \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \geq v(\mathcal{X}_h) + t_j \prod_{k \in \mathcal{X}_h} (1 -f_k)
+%\end{equation}
+%and concenating these equations yields $v(\mathcal{Y}_h) > v(\mathcal{X}_h)$, a contradiction. 
+%
+%On the other hand, if there is a school $k$ in $\mathcal{Y}_h$ having $t_k \leq t_j$, then removing this school from $\mathcal{Y}_h$ does not change the expected value of $ \max\{Y_h, t_j \} $. Therefore
+%\begin{equation}
+%\operatorname{E}\bigl[ \max\{Y_h^{\setminus k}, t_j \} \bigr] >  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \geq \operatorname{E}\bigl[ \max\{X_{h-1}, t_j \} \bigr]
+%\end{equation}
+%By repeating this logic, we must eventually encounter a subportfolio of $Y_h$ consisting \emph{entirely} of schools for which $t_k > t_j$, yielding the contradiction above. 
+
+%\begin{align}
+%&&\operatorname{E}\bigl[ \max\{Y_h^{\setminus k}, t_j \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+%\implies \quad&&  (1 - f_j) v(\mathcal{X}_{h-1})  + f_j \operatorname{E}\bigl[ \max\{Y_h^{\setminus k}, t_j \} \bigr]
+%&> (1 - f_j)  v(\mathcal{X}_{h-1}) + f_j  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+%&&&\geq v(\mathcal{X}_{h-1}) + f_j  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+%\end{align}
+
+%By nested induction on $h$ and the number of schools. Let $\mathcal{C}^{(i)} = \{1 \dots i\}$ denote the submarket consisting of the first $i$ schools, and let $\mathcal{X}_h^{(i)}$ denote the optimal $h$-portfolio over the schools in $\mathcal{C}^{(i)}$, which is defined for $i = 1 \cdots m$ and $h = 1 \cdots i$. First, we will show the base case  $\mathcal{X}_1 \subset \mathcal{X}_2$ holds for any market (step 1). Then, we will show that if the optimal portfolios over $\mathcal{C}^{(i)}$ are nested, then so are the optimal portfolios over $\mathcal{C}^{(i+1)}$ (step 2), and therefore those over $\mathcal{C}$ itself. 
+
+
+%step 2. Assume that
+%\begin{equation} \label{himinusonenested}
+%\mathcal{X}_1^{(i-1)} \subset \cdots \subset \mathcal{X}_{h-1}^{(i-1)}
+%\end{equation}
+%We want to show that
+%\begin{equation} \label{hplusoneiplusonenested}
+%\mathcal{X}_1^{(i)} \subset \cdots \subset \mathcal{X}_{h}^{(i)}
+%\end{equation}
+%We will proceed by induction. By the argument of step 1, $\mathcal{X}_1^{(i)} \subset  \mathcal{X}_2^{(i)}$. Now assume that $\mathcal{X}_1^{(i)} \subset  \cdots \subset \mathcal{X}_{j-1}^{(i)}$, and we will show that $\mathcal{X}_{j-1}^{(i)} \subset \mathcal{X}_{j}^{(i)}$. 
+%
+%If $\mathcal{X}_{j}^{(i)}$ contains $i$, then
+%\begin{equation} \label{xjiexpanded}
+%v(\mathcal{X}_{j}^{(i)}) = (1 - f_i) v(\mathcal{X}_{j}^{(i)}\setminus i) + f_i t_i
+%\end{equation}
+%Optimality now requires that $\mathcal{X}_{j}^{(i)}\setminus i = \mathcal{X}_{j-1}^{(i-1)}$. If $\mathcal{X}_{j-1}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j-1}^{(i-1)}  = \mathcal{X}_{j-1}^{(i)}$ and we are done. If $\mathcal{X}_{j-1}^{(i)}$ contains $i$, then expanding the expression for $\mathcal{X}_{j-1}^{(i)}$ in the manner of \eqref{xjiexpanded} implies $\mathcal{X}_{j-1}^{(i)} =  \mathcal{X}_{j-2}^{(i-1)}\cup\{i\}$. Since $i \in \mathcal{X}_{j}^{(i)}$ and $\mathcal{X}_{j-2}^{(i-1)} \subset  \mathcal{X}_{j-1}^{(i-1)}$ by the inductive hypothesis, the statement follows. 
+%
+%If $\mathcal{X}_{j}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j}^{(i)} = \mathcal{X}_{j}^{(i-1)}$ since the former is optimal over a larger set of schools. It follows by \eqref{himinusonenested} that $\mathcal{X}_{j-1}^{(i-1)} \subset \mathcal{X}_{j}^{(i)}$. %Now, if $\mathcal{X}_{j-1}^{(i-1)} $ does not contain $i$, we are done; if not, the argument of the previous paragraph implies that $\mathcal{X}_{j-2}^{(i-1)} \subset  \mathcal{X}_{j-1}^{(i-1)}$. 
+% This completes the proof because ...·
 
 
 
@@ -681,7 +726,7 @@ Let $\mathcal{A}_+ = \{i: x_i = 1 \wedge y_i=1\}$ and $\mathcal{A}_- =  \{i: x_i
 \begin{equation}
 S(x) = \frac{|\mathcal{A}_+|}{|\mathcal{A}_-| + |\mathcal{A}_+|} =\frac{x \cdot y}{k}
 \end{equation}
-represents the proportion of applicants who are "safe" from disruption by $\mathcal{B}$, and $\bar S(x)$ represents the expectation thereof. 
+represents the proportion of applicants who are ``safe'' from disruption by $\mathcal{B}$, and $\bar S(x)$ represents the expectation thereof. 
 } \else {
 내적 $x \cdot \bar y$에서 얻은 공정성의 측정 두가지를 고려한다.
 \begin{definition}[안정성 지표]

@@ -1,0 +1,2083 @@
+==== Student heterogeneity experiment ==== 
+Market 1 of 200
+
+
+*************************************************************************** 
+CONTAINS Runtime Modules of Parallel Sparse Linear Solver PARDISO Vers. 6.0
+Copyright Universita della Svizzera Italiana 2000-2018 All Rights Reserved.
+
+TIME-LIMITED ACADEMIC SINGLE-USER LICENSE: YOU ARE USING THE PARDISO SOLVER
+UNDER THE CONTROL OF AN ACADEMIC SINGLE-USER LICENSE. YOU AS  AN INDIVIDUAL
+MAY INSTALL AND USE PARDISO ON AN  UNLIMITED  NUMBER  OF COMPUTERS PROVIDED
+THAT YOU  ARE THE  ONLY INDIVIDUAL USING  THE  PARDISO SOLVER. THIS LICENSE
+IS TIED TO A SINGLE (IDENTICAL) USER NAME THAT YOU NEED ON THESE COMPUTERS.
+A SEPARATE LICENSE IS REQUIRED FOR EACH INDIVIDUAL USER IN ALL OTHER CASES.
+USI LUGANO  MAY  PROVIDE  YOU  WITH  A LICENSE  CODE KEY  THAT  ENABLES THE
+PARDISO  SOLVER  FOR  ADDITIONAL  USERS.   THE  DURATION  (TIME  PERIOD) OF
+YOUR LICENSE  AND  YOUR  ABILITY TO USE  THE PARDISO SOLVER  IS  LIMITED TO
+THE TIME PERIOD OF THE OBTAINED LICENSE, WHICH IS CONTROLLED BY THE LICENSE
+KEY CODE. THE ACADEMIC LICENSE PERMITS THE USE OF PARDISO ONLY FOR ACADEMIC
+RESEARCH. IF YOU ARE USING THE SOFTWARE FOR ANY OTHER  PURPOSE, YOU MAY  BE
+IN  AN UNLAWFUL VIOLATION  OF THE  TERMS  OF THIS  LICENSE,  AND  YOU  MUST
+OBTAIN  A VALID  ALTERNATIVE  LICENSE. 
+USI LUGANO DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE, INCLUDING
+ALL IMPLIED   WARRANTIES  OF   MERCHANTABILITY  AND  FITNESS. IN  NO  EVENT
+SHALL USI  LUGANO  OR  ANY  OF  ITS  ENTITIES  BE  LIABLE FOR  ANY SPECIAL,
+INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER  RESULTING FROM
+LOSS OF USE, DATA OR PROFITS,  WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE
+OR OTHER TORTIOUS ACTION,  ARISING OUT OF OR IN  CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+
+       Please visit http://www.pardiso-project.org for more details.      
+                                                                           
+ - You can suppress this message by setting the environment variable       
+   with e.g. export PARDISOLICMESSAGE=1                                    
+*************************************************************************** 
+
+******************************************************************************
+This program contains Ipopt, a library for large-scale nonlinear optimization.
+ Ipopt is released as open source code under the Eclipse Public License (EPL).
+         For more information visit https://github.com/coin-or/Ipopt
+******************************************************************************
+
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 2 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 3 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+    Equilibrium found at iteration 29
+Market 4 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 5 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 6 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 7 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 8 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 9 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 10 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 11 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 12 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 13 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 14 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 15 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 16 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 17 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 18 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 19 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 20 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 21 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 22 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 23 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 24 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 25 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 26 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 27 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 28 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 29 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 30 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 31 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 32 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 33 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 13
+Market 34 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 35 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 36 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 37 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 38 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 39 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 40 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 41 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 42 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 10
+Market 43 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 44 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 45 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 46 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 47 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 48 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 49 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 50 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 51 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 52 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 53 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 54 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 55 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 56 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 57 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 58 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 59 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 60 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 61 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 62 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 63 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 64 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 65 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 66 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 67 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 11
+Market 68 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 69 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 70 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 71 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 72 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 73 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 74 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 75 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 76 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 77 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 78 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 79 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 80 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 81 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 82 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 83 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 8
+Market 84 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 85 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 86 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 87 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 88 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 89 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 90 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 91 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 92 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 93 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 94 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 95 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 96 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 97 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 98 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 99 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 100 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 11
+Market 101 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 102 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 103 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 13
+Market 104 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 105 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 106 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 15
+Market 107 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 108 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 109 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 110 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 10
+Market 111 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 112 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 113 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 114 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 115 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 116 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 117 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 118 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 119 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 120 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 121 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+    Equilibrium found at iteration 22
+Market 122 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 123 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 124 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 125 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 126 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 127 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 128 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 129 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 130 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 19
+Market 131 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 132 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 133 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 134 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 135 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 136 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 137 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 138 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 139 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 140 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 141 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 142 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 143 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 144 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 145 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 146 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 147 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 148 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 149 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 150 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 151 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 152 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 153 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 154 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 155 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 156 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 157 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 158 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 159 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 160 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 161 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 162 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 163 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 164 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 165 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 166 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 167 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 168 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 169 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 170 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 171 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 172 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 173 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 8
+Market 174 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 175 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 176 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 177 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 178 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 179 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 180 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 181 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 182 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 183 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 184 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 185 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 186 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 187 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 188 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 189 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 190 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 191 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 192 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 193 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 194 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 195 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 196 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 197 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 198 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 199 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 200 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Some markets failed to converge. The following hypothesis test checks whether
+convergence is dependent on 1/B.
+
+Two sample t-test (unequal variance)
+------------------------------------
+Population details:
+    parameter of interest:   Mean difference
+    value under h_0:         0
+    point estimate:          0.00411471
+    95% confidence interval: (-0.1469, 0.1551)
+
+Test summary:
+    outcome with 95% confidence: fail to reject h_0
+    two-sided p-value:           0.9548
+
+Details:
+    number of observations:   [185,15]
+    t-statistic:              0.05757809558004558
+    degrees of freedom:       16.65976871881606
+    empirical standard error: 0.07146306852248707
+
+==== School complementarity experiment ==== 
+Market 1 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 2 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 3 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 4 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 5 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 6 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 7 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 8 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 9 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 10 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 11 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 12 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 13 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 14 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 15 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 16 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 17 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 18 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 19 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 20 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 21 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 22 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 23 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 24 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 25 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 26 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 27 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 28 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 29 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 30 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 31 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 32 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 33 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 34 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 35 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 36 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 37 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 38 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 39 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 40 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 41 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 42 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 43 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 44 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 45 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 46 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 47 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 48 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 49 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 50 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 10
+Market 51 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 52 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 53 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 7
+Market 54 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 8
+Market 55 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 56 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 57 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 58 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 59 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 60 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 61 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 62 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 63 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 64 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 65 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 66 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 67 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 68 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 69 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 70 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 71 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 72 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 73 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 74 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 75 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 76 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 77 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 78 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 79 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 80 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 81 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 82 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 83 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 84 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 85 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 86 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 87 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 88 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 89 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 90 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 91 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 92 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 93 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 94 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 95 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 96 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 13
+Market 97 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 98 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 99 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 100 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 101 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 14
+Market 102 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 103 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 104 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 105 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 106 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 107 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 108 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 109 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 110 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 111 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 112 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 113 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 114 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 11
+Market 115 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 116 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 117 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 118 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 119 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 120 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 121 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 122 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 123 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 124 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 125 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 126 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 127 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 128 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 129 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 130 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 131 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 132 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 133 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 134 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 135 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 136 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 137 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 138 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 139 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 140 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 141 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 142 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 143 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 144 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 145 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 146 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 147 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 148 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 149 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 150 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 151 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 152 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 153 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 154 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 155 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 156 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 157 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 158 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 159 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 160 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 161 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 162 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 163 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 164 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 165 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 166 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 167 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 4
+Market 168 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+    Equilibrium found at iteration 28
+Market 169 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 170 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 171 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 6
+Market 172 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 173 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 174 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 175 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 176 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 177 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 178 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 179 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 180 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 181 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 182 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 183 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 184 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 5
+Market 185 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 186 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 187 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 188 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 17
+Market 189 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 190 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 191 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 192 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 9
+Market 193 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 194 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 195 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 196 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 197 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 3
+Market 198 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    Equilibrium found at iteration 2
+Market 199 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 2 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Attempt 3 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    BR iteration 21 of 30
+  Failed to converge to equilibrium
+Market 200 of 200
+  Attempt 1 of 3
+    BR iteration 1 of 30
+    BR iteration 11 of 30
+    Equilibrium found at iteration 11
+Some markets failed to converge. The following hypothesis test checks whether
+convergence is dependent on γ.
+
+Two sample t-test (unequal variance)
+------------------------------------
+Population details:
+    parameter of interest:   Mean difference
+    value under h_0:         0
+    point estimate:          -0.036701
+    95% confidence interval: (-0.2276, 0.1542)
+
+Test summary:
+    outcome with 95% confidence: fail to reject h_0
+    two-sided p-value:           0.6837
+
+Details:
+    number of observations:   [188,12]
+    t-statistic:              -0.4170736900694634
+    degrees of freedom:       12.504681438330099
+    empirical standard error: 0.08799644539733194
+143.635656 seconds (167.09 M allocations: 9.683 GiB, 2.26% gc time, 4.65% compilation time)
