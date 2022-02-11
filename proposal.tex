@@ -863,16 +863,13 @@ We search for equilibria by generating an arbitrary mixed-strategy vector $x$ an
   %\DontPrintSemicolon
 \caption{Equilibrium algorithm for quadratic school preferences.} \label{eqalgoquadschoolpref}
 \KwData{Market parameters $t \in[0, 1]^n$, $a, b \in [0, \infty)^n$, $q \leq n$; step parameters $\alpha > 0, \beta \in (0, 1]$; tolerance $\epsilon > 0$.}
-\For{$j= 1 \cdots J$}
+\For{$j= 1 \dots J$}
 {
     $x^{(0)} \gets$ an arbitrary vector in $[0, 1]^n$\;
-    \For{$k= 1 \cdots K$}
+    \For{$k= 1 \dots K$}
     {
          $x^{(k)} \gets \operatorname{Box}\Bigl[x^{(k-1)} + \dfrac{\alpha}{k^\beta} \bigl(f(x^{(k-1)}) - t\bigr)\Bigr]$\;
-         \lIf{$ \bigl|x_i^{(k)} -x_i^{(k-1)} \bigr| \leq \epsilon, i = 1\dots n$}
-         {
-         	    \Return{$x^{(k)}$}
-         }
+         \lIf{$ \bigl|x_i^{(k)} -x_i^{(k-1)} \bigr| \leq \epsilon, i = 1\dots n$}{\Return{$x^{(k)}$}}
     }
 }
 \end{algorithm}
@@ -884,49 +881,53 @@ We consider two experiments. In the heterogeneity experiment, we fix the value o
 
 In the complementarity experiment, we fix the distribution of $t_i$ to $\operatorname{Beta}(10, 10)$ and vary $\gamma$ by drawing it randomly from $\operatorname{Uniform}(0, 1)$.
 
-In all cases, $a, b, q$, and $n$ are \dots and we create 200 instances. 
+In all cases, $a, b, q$, and $n$ are \dots and we create 500 instances. 
 
-We analyze the results graphically. T-tests show that convergence failures do not depend statistically on the experimental variables.
+Because the data used in these experiments is artificial, we elect to analyze the results graphically. T-tests show that convergence failures do not depend statistically on the experimental variables.
 
+
+\pagebreak
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-S.pdf}\end{center}
-  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-S.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) Effect of heterogeneity in students' risk preferences on the stability index $\bar S(x)$, a measure of the equilibrium's robustness to envy. Risk parameters $t_i$ were drawn from a $\operatorname{Beta}(B, B)$ distribution for 500 markets. 108 markets failed to converge to an equilibrium.}
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-T.pdf}\end{center}
-  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-T.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) Effect of heterogeneity in students' risk preferences on the alignment index $\bar T(x)$, a measure of the selective school's ability to approximate its ideal entering class using the subset of students who apply. }
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-U.pdf}\end{center}
-  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-U.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) Effect of heterogeneity in students' risk preferences on the aggregate student welfare $\bar U(x)$.}
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-k.pdf}\end{center}
-  \caption{(Heterogeneity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/heterogeneity-k.pdf}\end{center}
+  \caption{(Heterogeneity experiment.) Effect of heterogeneity in students' risk preferences on the size of the equilibrium $\bar k(x)$.}
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-S.pdf}\end{center}
-  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-S.pdf}\end{center}
+  \caption{(Complementarity experiment.) Effect of nonlinearity in the selective school's objective function on the stability index $S(x)$, a measure of the equilibrium's robustness to envy. 500 random markets with $\gamma \sim \operatorname{Uniform}(0, 1)$ were simulated. 142 markets failed to converge to an equilibrium. }
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-T.pdf}\end{center}
-  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-T.pdf}\end{center}
+  \caption{(Complementarity experiment.) Effect of nonlinearity in the school's objective function on the alignment index $\bar T(x)$, a measure of the selective school's ability to approximate its ideal entering class using the subset of students who apply.}
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-U.pdf}\end{center}
-  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-U.pdf}\end{center}
+  \caption{(Complementarity experiment.) Effect of nonlinearity in the school's objective function on the aggregate student welfare $\bar U(x)$. }
 \end{figure}
 
 \begin{figure}[h!]
-  \begin{center}\includegraphics[width=\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-k.pdf}\end{center}
-  \caption{(Complementarity experiment.) At times, we might want to put the caption on the side instead of at the top or bottom of the figure. The sidecap package can be used to place a caption next to the figure in such a case (it can also be used for other floating environments). }
+  \begin{center}\includegraphics[width=0.95\textwidth]{./TwoSchoolModels/CombiPref-complementarity/complementarity-k.pdf}\end{center}
+  \caption{(Complementarity experiment.) Effect of nonlinearity in the school's objective function on the size of the equilibrium $\bar k(x)$.}
 \end{figure}
+
+
 
 \pagebreak
 \ifEN \section{References} \else \section{참고문헌} \fi
