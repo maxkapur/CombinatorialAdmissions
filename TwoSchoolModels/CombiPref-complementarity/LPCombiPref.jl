@@ -4,11 +4,14 @@ using Plots, Plots.Measures
 using JuMP
 using Ipopt
 using Libdl
+using DataStructures
 using Distributions
 using DelimitedFiles
 using DataFrames
 using CSV
 using HypothesisTests: UnequalVarianceTTest
+import Base.copy
+import Base.length
 
 try
     Libdl.dlopen("/usr/lib/x86_64-linux-gnu/liblapack.so.3", RTLD_GLOBAL)
@@ -62,21 +65,56 @@ end
 Contains information about the equilibrium of a two-school admissions market 
 with combinatorial school preferences.
 """
-mutable struct Equilibrium
+struct Equilibrium
     market::Market
     x::Vector{Float64}   # Additive utility component
     f::Vector{Float64}   # Complementarity component
     y::Vector{Float64}   # Student preferences
     γ::Float64           # Complementarity ratio
     q::Int64
-    converged::Bool
+    err::Float64         # Disequilibrium measure
 end
+
+
+"""
+Lighter version of `Equilibrium` to use during iteration.
+"""
+mutable struct EquilibriumCandidate
+    x::Vector{Float64}   # Additive utility component
+    dx::Vector{Float64}  # Error vector
+    f::Vector{Float64}   # Complementarity component
+    err::Float64         # Disequilibrium measure
+    k::Int64             # Number of iterations it has been alive for
+
+    function EquilibriumCandidate(x, dx, f, err, k)
+        return new(x, dx, f, err, k)
+    end
+
+    function EquilibriumCandidate(n::Int64)
+        return new(zeros(n), zeros(n), zeros(n), 100*n, 1)
+    end
+
+    function EquilibriumCandidate(m::Market, γ::Float64, q::Int64)
+        x = randexp(m.n)
+        x[:] .*= q / (mean(m.t) * sum(x))
+        
+        f = admitresult(m, x, γ, q)
+        dx = f - m.t
+        err = norm(x - clamp.(x + dx, 0, 1))
+
+        return new(x, dx, f, err, 1)
+    end
+end
+
+
+Base.isless(A::EquilibriumCandidate, B::EquilibriumCandidate) = A.err ≤ B.err
+copy(A::EquilibriumCandidate) = EquilibriumCandidate(copy(A.x), copy(A.dx), copy(A.f), copy(A.err), copy(A.k))
 
 
 """
 Contains the effiency measures associated with a given equilibrium. 
 """
-mutable struct EfficiencyMeasures
+struct EfficiencyMeasures
     equilibrium::Equilibrium
     S::Float64   # Stability measure
     T::Float64   # Alignment measure
@@ -182,62 +220,173 @@ end
 Compute an equilibrium for the market `m` with complementarity parameter `γ` and capacity `q`
 using a myopic adjustment step rule.
 """
-function equilibrate(m::Market, γ::Float64, q::Int64;
-        tol=1e-4,  # Threshold within which a mixed strategy is acceptable
-        nit=30,    # Number of BR iterations to try
-        tries=3,   # Number of initial x vectors to try
-        α=10,     # Step params
-        β=0.01
-    )
-    
+function equilibrate(
+    m::Market,
+    γ::Float64,
+    q::Int64;
+    tol = 1e-5::Float64,  # Permissible equilibrium error
+    nit = 50::Int64,    # Number of root nodes to inspect
+    nseeds = 3::Int64,  # Number of initial seeds
+    Q = 10::Int64, # Maximum size of the tabu queue
+    steps = [1.0, 10.0]::Vector{Float64},
+    β = 0.9::Float64
+)
+
     y = admitresult(m, trues(m.n), γ, q)
+    k = 0
 
-    x = zeros(m.n)
-    x_next = zeros(m.n)
-    f = zeros(m.n)
+    seen = Set{UInt64}()
 
-    for j in 1:tries
-        println("  Attempt $j of $tries")
-    
-        x[:] = randexp(m.n)
-        x[:] .*= q/(mean(m.t) * sum(x))
+    cand = EquilibriumCandidate(m.n)
+    best_cand = copy(cand)
+    curr_cand = copy(cand)
 
-        for k in 1:nit
-#             println(round.(x, digits=4))
-            k % 10 == 1 && println("    BR iteration $k of $nit")
+    candidates = Deque{EquilibriumCandidate}()
 
-            f[:] = admitresult(m, x, γ, q)
-            x_next[:] = max.(0, min.(1,
-                            x + (f - m.t) * α / k^β
-                        ))
+    for j in 1:nseeds
+        push!(candidates, EquilibriumCandidate(m, γ, q))
+        push!(seen, hash(last(candidates).x))
+    end
+    # sort!(candidates, rev=true)
 
-            if isapprox(x, x_next; atol=tol)
-                println("    Equilibrium found at iteration $k")
-                # Stationary point: equilibrium found
-                return Equilibrium(m, x_next, f, y, γ, q, true)
-#             elseif x_next in x_seensofar
-#                 println("Cycled")
-#                 # Point already tried, so we are cycling
-#                 # Proceed to next j
-#                 break
-            else
-                # Keep iterating
-                x[:] = x_next
+    for k in 1:nit
+        curr_cand.x[:] = last(candidates).x
+        curr_cand.dx[:] = last(candidates).dx
+        curr_cand.f[:] = last(candidates).f
+        curr_cand.err = last(candidates).err
+        curr_cand.k = pop!(candidates).k
+        println("  BR iteration $k of $nit: Candidate error = $(round(curr_cand.err, digits=24)), " *
+                "$(length(candidates)) candidate(s) in queue")
+
+        # Generate neighbor from best response
+        cand.x[:] = curr_cand.f .> m.t
+        h = hash(cand.x)
+        if !(h in seen)
+            push!(seen, h)
+            cand.f[:] = admitresult(m, cand.x, γ, q)
+            cand.dx[:] = cand.f - m.t
+            cand.err = norm(cand.x - clamp.(cand.x + cand.dx, 0, 1))
+            cand.k = 1
+
+            if cand.err ≤ tol
+                println("    Equilibrium found by pure-strategy best response at iteration $k")
+                return Equilibrium(m, cand.x, cand.f, y, γ, q, cand.err)
             end
 
+            if cand.err < best_cand.err
+                best_cand.x[:] = cand.x
+                best_cand.dx[:] = cand.dx
+                best_cand.f[:] = cand.f
+                best_cand.err = cand.err
+                best_cand.k = cand.k
+                push!(candidates, copy(cand))
+            elseif length(candidates) < Q
+                pushfirst!(candidates, copy(cand))
+            end
+        end
+
+        # Generate neighbors using gradient
+        for α in steps
+            cand.x[:] = clamp.(curr_cand.x + curr_cand.dx * α / curr_cand.k^β, 0, 1)
+            h = hash(cand.x)
+            if !(h in seen)
+                push!(seen, h)
+                cand.f[:] = admitresult(m, cand.x, γ, q)
+                cand.dx[:] = cand.f - m.t
+                cand.err = norm(cand.x - clamp.(cand.x + cand.dx, 0, 1))
+                cand.k = curr_cand.k + 1
+            
+                if cand.err ≤ tol
+                    println("    Equilibrium found by gradient at iteration $k")
+                    return Equilibrium(m, cand.x, cand.f, y, γ, q, cand.err)
+                end
+            
+                if cand.err < best_cand.err
+                    best_cand.x[:] = cand.x
+                    best_cand.dx[:] = cand.dx
+                    best_cand.f[:] = cand.f
+                    best_cand.err = cand.err
+                    best_cand.k = cand.k
+                    push!(candidates, copy(cand))
+                elseif length(candidates) < Q
+                    pushfirst!(candidates, copy(cand))
+                end
+            end
+        end
+    
+        # Generate neighbors by changing just one student to her BR
+        i_new = findfirst(i -> curr_cand.x[i] < 1 && curr_cand.f[i] > m.t[i], 1:m.n)
+        if !isnothing(i_new)
+            cand.x[:] = curr_cand.x
+            h = hash(cand.x)
+            if !(h in seen)
+                push!(seen, h)
+                cand.x[i_new] = 1
+                cand.f[:] = admitresult(m, cand.x, γ, q)
+                cand.dx[:] = cand.f - m.t
+                cand.err = norm(cand.x - clamp.(cand.x + cand.dx, 0, 1))
+                cand.k = 1
+            
+                if cand.err ≤ tol
+                    println("    Equilibrium found by single swap to 1 at iteration $k")
+                    return Equilibrium(m, cand.x, cand.f, y, γ, q, cand.err)
+                end
+            
+                if cand.err < best_cand.err
+                    best_cand.x[:] = cand.x
+                    best_cand.dx[:] = cand.dx
+                    best_cand.f[:] = cand.f
+                    best_cand.err = cand.err
+                    best_cand.k = cand.k
+                    push!(candidates, copy(cand))
+                elseif length(candidates) < Q
+                    pushfirst!(candidates, copy(cand))
+                end
+            end
+        end
+    
+        i_new = findfirst(i -> curr_cand.x[i] > 0 && curr_cand.f[i] < m.t[i], 1:m.n)
+        if !isnothing(i_new)
+            cand.x[:] = curr_cand.x
+            h = hash(cand.x)
+            if !(h in seen)
+                push!(seen, h)
+                cand.x[i_new] = 0
+                cand.f[:] = admitresult(m, cand.x, γ, q)
+                cand.dx[:] = cand.f - m.t
+                cand.err = norm(cand.x - clamp.(cand.x + cand.dx, 0, 1))
+                cand.k = 1
+            
+                if cand.err ≤ tol
+                    println("    Equilibrium found by single swap to 0 at iteration $k")
+                    return Equilibrium(m, cand.x, cand.f, y, γ, q, cand.err)
+                end
+            
+                if cand.err < best_cand.err
+                    best_cand.x[:] = cand.x
+                    best_cand.dx[:] = cand.dx
+                    best_cand.f[:] = cand.f
+                    best_cand.err = cand.err
+                    best_cand.k = cand.k
+                    push!(candidates, copy(cand))
+                elseif length(candidates) < Q
+                    pushfirst!(candidates, copy(cand))
+                end
+            end
         end
     end
 
-    println("  Failed to converge to equilibrium")
-    return Equilibrium(m, x, f, y, γ, q, false)
+    println("    Failed to converge to equilibrium, returning best solution found")
+    return Equilibrium(m, best_cand.x, best_cand.f, y, γ, q, best_cand.err)
 end
 
 
-function experiment_heterogeneity(n_markets=5::Int, n=20::Int, q=5::Int)
+function experiment_heterogeneity(n_markets = 5::Int, n = 20::Int, q = 5::Int)
     Binv = rand(n_markets)
     B = inv.(Binv)
     EQ = Equilibrium[]
     EM_ = EfficiencyMeasures[]
+    err = zeros(n_markets)
     converged = falses(n_markets)
 
     for p in 1:n_markets
@@ -247,11 +396,13 @@ function experiment_heterogeneity(n_markets=5::Int, n=20::Int, q=5::Int)
 
         push!(EQ, eq)
         push!(EM_, EfficiencyMeasures(eq))
-        converged[p] = eq.converged
+        err[p] = eq.err
+        converged[p] = eq.err < 1e-5
     end
 
     EM = DataFrame(
         Binv = Binv,
+        err = err,
         converged = converged,
         S = [EM_[p].S for p in 1:n_markets],
         T = [EM_[p].T for p in 1:n_markets],
@@ -286,6 +437,7 @@ function experiment_complementarity(n_markets = 5::Int, n = 20::Int, q = 5::Int)
     Γ = rand(n_markets)
     EQ = Equilibrium[]
     EM_ = EfficiencyMeasures[]
+    err = zeros(n_markets)
     converged = falses(n_markets)
 
     for p in 1:n_markets
@@ -295,11 +447,13 @@ function experiment_complementarity(n_markets = 5::Int, n = 20::Int, q = 5::Int)
 
         push!(EQ, eq)
         push!(EM_, EfficiencyMeasures(eq))
-        converged[p] = eq.converged
+        err[p] = eq.err
+        converged[p] = eq.err < 1e-5
     end
 
     EM = DataFrame(
         γ = Γ,
+        err = err,
         converged = converged,
         S = [EM_[p].S for p in 1:n_markets],
         T = [EM_[p].T for p in 1:n_markets],
@@ -336,47 +490,56 @@ end
 Runs the heterogeneity and complementarity experiments, exports results and plots,
 displays results of hypothesis tests on whether converge depends on experimental variables.
 """
-function everything(n_markets = 5::Int, n = 20::Int, q = 5::Int)
+function everything(n_markets=5::Int, n=20::Int, q=5::Int, write=false::Bool)
     measures_names = split("S T U k")
 
     println("==== Student heterogeneity experiment ==== ")
     res_heterogeneity = experiment_heterogeneity(n_markets, n, q)
     P_heterogeneity = plots_heterogeneity(res_heterogeneity)
-    CSV.write("heterogeneity_results.csv", res_heterogeneity.EM)
-
+    
     # Test that the instances that converge are not significally
     # different from those that didn't in the experimental variable
-    if sum(.!res_heterogeneity.EM.converged) > 1
+    if 1 < sum(res_heterogeneity.EM.converged) < n_markets - 1
     	println("Some markets failed to converge. The following hypothesis test checks whether\nconvergence is dependent on 1/B.\n")
         display(UnequalVarianceTTest(
             res_heterogeneity.EM.Binv[res_heterogeneity.EM.converged],
             res_heterogeneity.EM.Binv[.!res_heterogeneity.EM.converged]))
     end
 
-    for (i, pl) in enumerate(P_heterogeneity)
-        savefig(pl, "heterogeneity-$(measures_names[i]).png")
-        savefig(pl, "heterogeneity-$(measures_names[i]).pdf")
-    end 
-    # display.(P_heterogeneity)
+    if write
+        CSV.write("heterogeneity_results.csv", res_heterogeneity.EM)
+        for (i, pl) in enumerate(P_heterogeneity)
+            savefig(pl, "heterogeneity-$(measures_names[i]).png")
+            savefig(pl, "heterogeneity-$(measures_names[i]).pdf")
+        end
+    else
+        display(res_heterogeneity.EM)
+        display.(P_heterogeneity)
+    end
 
 
     println("\n==== School complementarity experiment ==== ")
     res_complementarity = experiment_complementarity(n_markets, n, q)
     P_complementarity = plots_complementarity(res_complementarity)
-    CSV.write("complementarity_results.csv", res_complementarity.EM)
 
-    if sum(.!res_complementarity.EM.converged) > 1
-    	println("Some markets failed to converge. The following hypothesis test checks whether\nconvergence is dependent on γ.\n")
+    if 1 < sum(res_complementarity.EM.converged) < n_markets - 1
+        println("Some markets failed to converge. The following hypothesis test checks whether\nconvergence is dependent on γ.\n")
         display(UnequalVarianceTTest(
             res_complementarity.EM.γ[res_complementarity.EM.converged],
             res_complementarity.EM.γ[.!res_complementarity.EM.converged]))
     end
 
-    for (i, pl) in enumerate(P_complementarity)
-        savefig(pl, "complementarity-$(measures_names[i]).png")
-        savefig(pl, "complementarity-$(measures_names[i]).pdf")
+    if write
+        CSV.write("complementarity_results.csv", res_complementarity.EM)
+        for (i, pl) in enumerate(P_complementarity)
+            savefig(pl, "complementarity-$(measures_names[i]).png")
+            savefig(pl, "complementarity-$(measures_names[i]).pdf")
+        end
+    else
+        display(res_complementarity.EM)
+        display.(P_complementarity)
     end
-    # display.(P_complementarity)
 end
 
-@time everything(500, 60, 20)
+@time everything(10, 60, 20)
+

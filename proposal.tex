@@ -848,16 +848,16 @@ and inspecting the dual variables $\lambda$ associated the constraint $z \leq x$
 \subsubsection{Equilibrium computation}
 To compute mixed-strategy equilibria in the quadratic preference environment, we start with an arbitrary strategy vector $x$ and adjust it according to a decreasing step rule reminiscent of projected gradient descent.
 
-Let $\operatorname{Box}(x)$ denote the projection of the vector $x$ to the $1$-hypercube:
-\begin{equation}\operatorname{Box}(x)_i = \max\bigl\{0, \min\{1, x_i \}\bigr\}, \end{equation}
+Let $\operatorname{Clamp}(x)$ denote the projection of the vector $x$ to the $1$-hypercube:
+\begin{equation}\operatorname{Clamp}(x)_i = \max\bigl\{0, \min\{1, x_i \}\bigr\}, \end{equation}
 Observe that a mixed strategy can be optimal for $s_i$ only if $f_i = t_i$. If $f_i  - t_i \gtrless 0$, then $s_i$ can improve her utility by choosing $x_i = \operatorname{}\limits^1_0$. Therefore, it is not difficult to see that $x$ is an equilibrium if and only if
-\begin{equation}x = \operatorname{Box}\bigl[x + (f(x) - t)\bigr] \end{equation}
+\begin{equation}x = \operatorname{Clamp}\bigl[x + f(x) - t\bigr] \end{equation}
 Thus, we use the following intuitive notion of approximate equilibrium as our convergence criterion.
 \begin{definition}[$\varepsilon$-approximate equilibrium]
 For a given market, $x$ is called an $\varepsilon$-approximate equilibrium if and only if
-\[ \Bigl|x_i - \operatorname{Box}\bigl[x_i + (f_i(x_{\setminus i}) - t_i)\bigr] \Bigr| \leq \epsilon, \quad i = 1\dots n\]
+\[ \Bigl\|x - \operatorname{Clamp}\bigl[x + f(x) - t\bigr] \Bigr\|_2 \leq \epsilon\]
 \end{definition}
-We search for equilibria by generating an arbitrary mixed-strategy vector $x$ and updating in the direction of $f(x) - t$, as described in the following algorithm. The choice of step size ensures that, given infinite iterations, the algorithm can explore the entirety of the feasible space while refraining from cycling. Rather than iterating continuously from a single initial point, in our experiments, it proved more effective to terminate the search and choose a new seed point when the algorithm fails to converge within several iterations. 
+We search for equilibria by generating an arbitrary mixed-strategy vector $x$ and generate three kinds of neighbors, in a manner similar to that employed by Othman et al. (2010).  updating in the direction of $f(x) - t$, as described in the following algorithm. The choice of step size ensures that, given infinite iterations, the algorithm can explore the entirety of the feasible space while refraining from cycling. Rather than iterating continuously from a single initial point, in our experiments, it proved more effective to terminate the search and choose a new seed point when the algorithm fails to converge within several iterations. 
 
 \begin{algorithm}[H] 
   %\DontPrintSemicolon
@@ -940,7 +940,7 @@ Budish, Eric. 2011. ``The Combinatorial Assignment Problem: Approximate Competit
 
 Fu, Chao. 2014. ``Equilibrium Tuition, Applications, Admissions, and Enrollment in the College Market.'' \emph{Journal of Political Economy} 122(2): 225--81. \url{https://doi.org/10.1086/675503}. 
 
-Othman, Abraham, Eric Budish, and Tuomas Sandholm. 2020. ``Finding Approximate Competitive Equilibria: Efficient and Fair
+Othman, Abraham, Eric Budish, and Tuomas Sandholm. 2010. ``Finding Approximate Competitive Equilibria: Efficient and Fair
 Course Allocation.'' In \emph{Proceedings of 9th International Conference on Autonomous Agents and Multiagent Systems.} New York: ACM. \url{https://dl.acm.org/doi/abs/10.5555/1838206.1838323}.
 
 \end{document}  
