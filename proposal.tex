@@ -286,24 +286,81 @@ v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
 \end{align}
 which is a contradiction.
 
-(Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show that  $\mathcal{X}_h \subset  \mathcal{X}_{h+1}$. Pick $j \in \mathcal{X}_{h+1} \setminus \mathcal{X}_h$ and let $\mathcal{Y}_h = \mathcal{X}_{h+1} \setminus j$.
-Also, for each portfolio $\mathcal{X}$, let the random variable $X = \max\{t_j Z_j : j \in \mathcal{X}\}$ denote the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. 
+(Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show that  $\mathcal{X}_h \subset  \mathcal{X}_{h+1}$. Applying the inductive hypothesis, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup \{j\}$. To get a contradiction, suppose that $\mathcal{X}_{h+1} = \mathcal{Y}_{h-1} \cup \{k, l\}$, where $k, l \in \mathcal{X}_{h+1} \setminus \mathcal{X}_h$. We will show that if such a counterexample exists, then a counterexample exists for a market in which all schools have the same admissions probability $f_j = 1/2$. But the optimal portfolios for this facile market are clearly nested, a contradiction.
 
-If the theorem is false, then it must be the case that both $v(\mathcal{X}_h) > v(\mathcal{Y}_h)$ and $v(\mathcal{X}_{h+1}) > v(\mathcal{X}_h \cup\{j\})$. That is,
-\begin{align}
-&&v(\mathcal{X}_{h+1}) = v(\mathcal{Y}_h \cup\{j\}) &> v(\mathcal{X}_h \cup\{j\}) \\
-\iff \quad&& (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &> (1 - f_j) v(\mathcal{X}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-&&&\geq (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-\implies \quad && \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr]\\
-\implies \quad && \operatorname{E}\bigl[ \max\{Y_h - t_j, 0 \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h- t_j, 0 \} \bigr]
+Without loss of generality, we may assume that $\mathcal{C} = \mathcal{X}_{h+1} \cup \mathcal{X}_h$. Let $\mathcal{X}_{h+1} = \{(1), \dots, (h+1)\}$ where $t_{(1)} \leq \cdots \leq t_{(h+1)}$. 
+
+$\mathcal{X}_h$ and $\mathcal{X}_{h+1}$ remain optimal in the modified market if the following sets of inequalities are satisfied:
+\begin{align} 
+\forall i \in \mathcal{X}_{h+1} , \qquad w(\mathcal{X}_{h+1} \setminus i)& < w(\mathcal{X}_h)\\
+\iff \label{linearsystemfortransformingtocommonf}
+\begin{bmatrix}
+0 & 1/2^{h} & 1/2^{h-1} & \cdots & 1/2^{2} & 1/2 \\
+1/2^{h}  & 0 & 1/2^{h-1} & \cdots & 1/2^{2} & 1/2 \\
+1/2^{h} & 1/2^{h-1} & 0&\cdots & 1/2^{2} & 1/2 \\
+\vdots & \vdots & \vdots & \ddots & \vdots &\vdots\\
+1/2^{h} & 1/2^{h-1} & 1/2^{h-2} &\cdots & 0& 1/2 \\
+1/2^{h} & 1/2^{h-1} & 1/2^{h-2} &\cdots & 1/2^{2} &0\\
+\end{bmatrix}
+\begin{bmatrix}
+t_{(1)} \\
+t_{(2)} \\
+t_{(3)} \\
+\vdots \\
+t_{(h)} \\
+t_{(h+1)} \\
+\end{bmatrix}
+&<
+\begin{bmatrix}
+%w(\mathcal{X}_h) - \varepsilon_1 \\
+%w(\mathcal{X}_h) - \varepsilon_2 \\
+%w(\mathcal{X}_h)- \varepsilon_3 \\
+%\vdots \\
+%w(\mathcal{X}_h) - \varepsilon_h \\
+%w(\mathcal{X}_h) - \varepsilon_{h+1} \\
+w(\mathcal{X}_h) \\
+w(\mathcal{X}_h) \\
+w(\mathcal{X}_h) \\
+\vdots\\
+w(\mathcal{X}_h) \\
+w(\mathcal{X}_h) \\
+\end{bmatrix}
 \end{align}
-On the other hand, 
-\begin{align}
-&&\Delta v(\mathcal{Y}_h, j) &> \Delta v(\mathcal{X}_h, j) \\
-\implies \quad && \operatorname{E}\bigl[ \max\{0, t_j - Y_h \} \bigr] &>  \operatorname{E}\bigl[ \max\{0, t_j - X_h \} \bigr]
+and
+\begin{align} 
+\label{linearsystemfortransformingtocommonf2}
+\forall i \in \mathcal{X}_{h+1} , \qquad w(\mathcal{X}_{h+1}) = \sum_{l=1}^{h+1} t_{(l)} 1/2^l  > w(\mathcal{X}_h\cup\{i\})
 \end{align}
-(WIP.)  
+The $i$th row of this system says that $w(\mathcal{X}_{h+1} \setminus (i)) \leq v_h - \epsilon_i$, where $\epsilon_i = v_h - w(\mathcal{X}_{h+1} \setminus (i)) >0$. We will now modify the $t_j$ values so that $w(\mathcal{X}_h) = v(\mathcal{X}_h)$ and \eqref{linearsystemfortransformingtocommonf} holds with equality.
+
+To ensure that $\mathcal{X}_h$ is still optimal at $h$ in 
+
+The right 
+
+
+
+
+
 \end{proof}
+
+%(Inductive step)
+%Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show that  $\mathcal{X}_h \subset  \mathcal{X}_{h+1}$. Pick $j \in \mathcal{X}_{h+1} \setminus \mathcal{X}_h$ and let $\mathcal{Y}_h = \mathcal{X}_{h+1} \setminus j$.
+%Also, for each portfolio $\mathcal{X}$, let the random variable $X = \max\{t_j Z_j : j \in \mathcal{X}\}$ denote the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. 
+%
+%If the theorem is false, then it must be the case that both $v(\mathcal{X}_h) > v(\mathcal{Y}_h)$ and $v(\mathcal{X}_{h+1}) > v(\mathcal{X}_h \cup\{j\})$. That is,
+%\begin{align}
+%&&v(\mathcal{X}_{h+1}) = v(\mathcal{Y}_h \cup\{j\}) &> v(\mathcal{X}_h \cup\{j\}) \\
+%\iff \quad&& (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &> (1 - f_j) v(\mathcal{X}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+%&&&\geq (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
+%\implies \quad && \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr]\\
+%\implies \quad && \operatorname{E}\bigl[ \max\{Y_h - t_j, 0 \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h- t_j, 0 \} \bigr]
+%\end{align}
+%On the other hand, 
+%\begin{align}
+%&&\Delta v(\mathcal{Y}_h, j) &> \Delta v(\mathcal{X}_h, j) \\
+%\implies \quad && \operatorname{E}\bigl[ \max\{0, t_j - Y_h \} \bigr] &>  \operatorname{E}\bigl[ \max\{0, t_j - X_h \} \bigr]
+%\end{align}
+%(WIP.)  
 
 
 %

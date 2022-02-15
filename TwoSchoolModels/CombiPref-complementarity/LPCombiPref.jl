@@ -541,5 +541,5 @@ function everything(n_markets=5::Int, n=20::Int, q=5::Int, write=false::Bool)
     end
 end
 
-@time everything(10, 60, 20)
+@time everything(600, 60, 20, true)
 
