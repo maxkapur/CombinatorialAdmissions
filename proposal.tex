@@ -187,7 +187,7 @@ As this section considers a single student’s optimization problem, we drop sub
 \ifEN \subsection{Problem formulation}  \else \subsection{모형화} \fi
 Consider a college admissions market with $m$ schools, $\mathcal{C} = \{ 1 \dots m\}$. The $j$th school is named $c_j$. By government regulation, students are allowed to apply to no more than $h$ schools. (In the Korean case, $m=202$ and $h=3$.) We consider the optimal application strategy for a single student, whom we will call Alma.
 
-For $j=1\dots m$, let $t_j > 0$ denote the utility that Alma receives from attending $c_j$, and let $f_j$ denote the probability that she is admitted if she applies. Let the random variable $Z_j$ equal one if Alma gets into $c_j$ and zero otherwise.  We assume that Alma’s admissions outcome at each school is independent of her outcome at the other schools.\footnote{This assumption is appropriate when $f$ gives the admissions probabilities \emph{specifically} for Alma. Recall that in the equilibrium model, the entries of $f = f_{i}(\mathcal{X}_{\setminus i})$ depend on Alma’s index $i$ and the application decisions of students other than Alma. Once these factors are accounted for, the independence of the $Z_j$ is a direct consequence of Assumption \ref{preforderdrawnindep}. } Thus $Z$ is a vector of independent Bernoulli variables with probabilities given by $f$. To ease notation, let $c_0$ denote Alma's outcome if she does not get into any college, where $t_0 = 0$ and $f_0 = 1$. Sort the schools so that $t_{j-1} \leq t_j$ for $j=1 \dots m$.
+For $j=1\dots m$, let $t_j > 0$ denote the utility that Alma receives from attending $c_j$, and let $f_j$ denote the probability that she is admitted if she applies. Let the random variable $Z_j$ equal one if Alma gets into $c_j$ and zero otherwise.  We assume that Alma’s admissions outcome at each school is independent of her outcome at the other schools.\footnote{This assumption is appropriate when $f$ gives the admissions probabilities \emph{specifically} for Alma. Recall that in the equilibrium model, the entries of $f = f_{i}(\mathcal{X}_{\setminus i})$ depend on Alma’s index $i$ and the application decisions of students other than Alma. Once these factors are accounted for, the independence of the $Z_j$ is a direct consequence of Assumption \ref{preforderdrawnindep}. } Thus $Z$ is a vector of independent Bernoulli variables with probabilities given by $f$. Let $c_0$ denote Alma's outcome if she does not get into any college, with utility $t_0$ and $f_0 = 1$. Sort the schools so that $t_{j-1} \leq t_j$ for $j=1 \dots m$.
 %For the \emph{generic} student, when $f_j$ is simply $c_j$'s acceptance rate, admissions outcomes will almost certainly correlate across schools.
 
 Let $\mathcal{X}$ denote the set of schools to which Alma applies, called her \emph{application portfolio}, and let $x$ denote the same encoded as a binary vector, where $x_j=\mathbf{1}[j\in \mathcal{X}]$ for $j=1\dots m$. The expected utility Alma receives from $\mathcal{X}$ is called the portfolio’s \emph{valuation}.
@@ -196,26 +196,45 @@ Let $\mathcal{X}$ denote the set of schools to which Alma applies, called her \e
 v(\mathcal{X}) = \operatorname{E}\left[ \max\{t_j Z_j : j \in \mathcal{X}\} \right]
 \end{equation}
 \end{definition}
-\begin{theorem}[Closed form of portfolio valuation function]
-\begin{equation} \label{closedformportfoliovaluation}
-v(\mathcal{X}) = \sum_{j\in \mathcal{X}} t_j f_j  \prod_{\substack{j’ \in \mathcal{X}: \\ j' > j}} (1 - f_{j’}) = \sum_{j=1}^m x_j t_j f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’}) \end{equation}
+\begin{theorem}[Closed forms of portfolio valuation function]
+\begin{align}
+v(\mathcal{X}) &= \sum_{j\in\{0\}\cup\mathcal{X}} t_j f_j  \prod_{\substack{j’ \in \mathcal{X}: \\ j' > j}} (1 - f_{j’})  \label{closedformportfoliovaluationX}\\
+v(x) &= t_0 \prod_{j=1}^m (1 - f_{j}) + \sum_{j=1}^m x_j t_j f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’}) \label{closedformportfoliovaluationx}
+\end{align}
 where the empty product equals one.
 \end{theorem}
 \begin{proof}
-First consider the case where Alma applies to every school. Let $B$ denote the index of the best school that Alma gets into, where $B =0$ if she gets in nowhere. Then $B = j$ if and only if Alma is \emph{admitted} to $j$ and \emph{rejected} from any school she prefers to $j$; that is, any school with higher index.
+Let $p_j$ denote the probability that Alma attends $c_j$. Alma attends $c_j$ if and only if she \emph{applies} to $c_j$, is \emph{admitted} to $c_j$, and is \emph{rejected} from any school she prefers to $c_j$; that is, any school with higher index. Hence,
 \begin{equation}
-\operatorname{Pr}[B = j\text{~\textbar~apply everywhere}] = f_j (1 - f_{j+1}) (1 - f_{j+2})(\cdots) (1 - f_{m}), \quad j = 1\dots m
+p_j(\mathcal{X}) = 
+\begin{cases}
+\displaystyle f_j  \prod_{\substack{j’ \in \mathcal{X}: \\ j' > j}} (1 - f_{j’}), \quad & j \in \{0\}\cup\mathcal{X}\\
+0, \quad & \text{otherwise}
+\end{cases}
 \end{equation}
-When Alma applies to only a subset of schools, then the product should run over the set of schools that Alma prefers to $j$ \emph{and} actually applies to. Since $(1 - f_{j} x_j) = 1$ if $x_j =0$, we can express this by writing
-\begin{equation} \label{probbeqj}
-\operatorname{Pr}[B = j] = x_j f_j (1 - f_{j+1} x_{j+1}) (1 - f_{j+2} x_{j+2} )(\cdots) (1 - f_{m} x_m), \quad j = 1\dots m
-\end{equation}
-Now computing the expectation
+Now computing $v(\mathcal{X}) = \sum_{j=0}^m  t_j p_j$ yields \eqref{closedformportfoliovaluationX}. Next, because $1 - f_j x_j = 1$ if $x_j = 0$, we may define $p_j$ equivalently as
 \begin{equation}
-v(\mathcal{X}) = \sum_{j=0}^m t_j \operatorname{Pr}[B = j]
+p_j(\mathcal{X}) = x_j  f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’})
 \end{equation}
-yields the result. 
+to obtain \eqref{closedformportfoliovaluationx}. 
 \end{proof}
+
+The following theorem says that without loss of generality, we may assume that $t_0 = 0$ (or any constant).
+\begin{theorem} \label{assumetzerozero}
+Let $\bar t_j = t_j - \gamma$ for $j = 0 \dots m$. Then
+\[v(\mathcal{X};  t_j) = v(\mathcal{X}; \bar t_j) + \gamma\] regardless of $\mathcal{X}$. 
+\end{theorem}
+\begin{proof}
+By definition, $\sum_{j=0}^m p_j(\mathcal{X}) = \sum_{j \in \{0\}\cup\mathcal{X}} p_j(\mathcal{X}) = 1$. Letting $\bar t_j = t_j - t_0$ for $j = 0 \dots m$, we obtain $\bar t_0 = 0$ and
+\begin{align}
+v(\mathcal{X}; \bar t_j) &= \sum_{j\in \{0\}\cup\mathcal{X}}  \bar t_j p_j(\mathcal{X})\\
+&=\sum_{j\in \{0\}\cup\mathcal{X}} (t_j - \gamma) p_j(\mathcal{X})\\
+&=\sum_{j\in \{0\}\cup\mathcal{X}} t_j p_j(\mathcal{X})  - \gamma \\
+&= v(\mathcal{X}; t_j) - \gamma
+\end{align}
+which completes the proof. 
+\end{proof}
+
 Let us express the optimization problem as an INLP.
 \begin{definition}[Alma’s problem]
 The optimal college application portfolio for Alma is given by the solution to the following integer nonlinear program:
@@ -251,30 +270,31 @@ is the optimal solution.
 Hope is not lost. We can still find the optimal solution in $O(h^2 m + m\log m)$ time, as we will now show.
 
 \ifEN \subsection{Solution}  \else \subsection{풀이} \fi
-It turns out that the solution to Alma's problem possesses a special structure: An optimal portfolio of size $h+1$ includes an optimal portfolio of size $h$ as a subset. To show this result, we need to introduce some new notation. For an application portfolio $\mathcal{X}$, the random variable $X  = \max\{ t_j Z_j : j \in \mathcal{X}$ represents the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. It is also helpful to define $\Delta v(\mathcal{X}, j)$ as the utility gained by adding $c_j$ to the portfolio $\mathcal{X}$. That is, 
-\begin{align} \Delta v(\mathcal{X}, j) &= v(\mathcal{X} \cup \{j\})  - v(\mathcal{X}) \\
-&= (1 - f_j) v(\mathcal{X}) + f_j \operatorname{E}[\max\{X, t_j\}] - v(\mathcal{X}) \\
-&= f_j \operatorname{E}[\max\{0, t_j - X\}]  \label{emaxtjminusX}
-\end{align}
-
-\begin{lemma}
-For all $\mathcal{X}\subseteq \mathcal{C}$ and $i, j \in \mathcal{C}$, $\Delta v(\mathcal{X}, j) \geq \Delta v(\mathcal{X} \cup \{i\}, j)$. 
-\end{lemma}
-\begin{proof}
-If a new school $i$ is added to $\mathcal{X}$, then the expected value of $X$ can only increase. Likewise, the probability that Alma is admitted to at least one school in $\mathcal{X}\cup\{i\}$ that she prefers to $j$ must be higher than in $\mathcal{X}$. Therefore, the maximum in \eqref{emaxtjminusX} is more likely to occur in the second entry, and achieves a lower value. 
-\end{proof}
-Now we may present the main result.
+It turns out that the solution to Alma's problem possesses a special structure: An optimal portfolio of size $h+1$ includes an optimal portfolio of size $h$ as a subset.
+%To show this result, we need to introduce some new notation. For an application portfolio $\mathcal{X}$, the random variable $X  = \max\{ t_j Z_j : j \in \mathcal{X}\}$ represents the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. It is also helpful to define $\Delta v(\mathcal{X}, j)$ as the utility gained by adding $c_j$ to the portfolio $\mathcal{X}$. That is, 
+%\begin{align} \Delta v(\mathcal{X}, j) &= v(\mathcal{X} \cup \{j\})  - v(\mathcal{X}) \\
+%&= (1 - f_j) v(\mathcal{X}) + f_j \operatorname{E}[\max\{X, t_j\}] - v(\mathcal{X}) \\
+%&= f_j \operatorname{E}[\max\{0, t_j - X\}]  \label{emaxtjminusX}
+%\end{align}
+%
+%\begin{lemma}
+%For all $\mathcal{X}\subseteq \mathcal{C}$ and $i, j \in \mathcal{C}$, $\Delta v(\mathcal{X}, j) \geq \Delta v(\mathcal{X} \cup \{i\}, j)$. 
+%\end{lemma}
+%\begin{proof}
+%If a new school $i$ is added to $\mathcal{X}$, then the expected value of $X$ can only increase. Likewise, the probability that Alma is admitted to at least one school in $\mathcal{X}\cup\{i\}$ that she prefers to $j$ must be higher than in $\mathcal{X}$. Therefore, the maximum in \eqref{emaxtjminusX} is more likely to occur in the second entry, and achieves a lower value. 
+%\end{proof}
+%Now we may present the main result.
 
 \begin{theorem}[Nestedness of optimal application portfolios] \label{nestedapplication}
-Let $\mathcal{X}_h$ denote Alma’s optimal application portfolio when the application limit is $h$. If each $\mathcal{X}_h$ is unique,
+Let $\mathcal{X}_h$ denote Alma’s optimal application portfolio when the application limit is $h$. If each $\mathcal{X}_h$ is unique, then
 \begin{equation}
 \mathcal{X}_1 \subset \mathcal{X}_2\subset \dots \subset \mathcal{X}_m
 \end{equation}
 If the optimal portfolios are not unique, then there is a sequence of optimal portfolios satisfying the above.
 \end{theorem}
-\begin{proof} By induction on $h$.
+\begin{proof} By induction on $h$. Applying Theorem \ref{assumetzerozero}, we assume that $t_0 = 0$. 
 
-(Base case.)  First, we will show that  $\mathcal{X}_1 \subset \mathcal{X}_2$. To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
+(Base case.) First, we will show that  $\mathcal{X}_1 \subset \mathcal{X}_2$. To get a contradiction, suppose that the optima are $\mathcal{X}_1 = \{j\}$ and $\mathcal{X}_2 = \{k, l\}$, where we may assume that $t_k \leq t_l$. Optimality requires that
 \begin{equation}v(\mathcal{X}_1 )  = f_j t_j > v(\{k\}) = f_k t_k\end{equation}
 and
 \begin{align}
@@ -286,139 +306,38 @@ v(\mathcal{X}_2) =  f_k (1- f_l) t_k + f_l t_l &> v(\{j, l\}) \\
 \end{align}
 which is a contradiction.
 
-(Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show that  $\mathcal{X}_h \subset  \mathcal{X}_{h+1}$. Applying the inductive hypothesis, we write $\mathcal{X}_h = \mathcal{X}_{h-1} \cup \{j\}$. To get a contradiction, suppose that $\mathcal{X}_{h+1} = \mathcal{Y}_{h-1} \cup \{k, l\}$, where $k, l \in \mathcal{X}_{h+1} \setminus \mathcal{X}_h$. We will show that if such a counterexample exists, then a counterexample exists for a market in which all schools have the same admissions probability $f_j = 1/2$. But the optimal portfolios for this facile market are clearly nested, a contradiction.
+(Inductive step.) Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show $\mathcal{X}_h \subset \mathcal{X}_{h+1}$. Let $k = \argmax\{ t_k: k \in \mathcal{X}_{h+1}\}$ and write $\mathcal{X}_{h+1} = \mathcal{Y}_{h} \cup \{k\}$.
 
-Without loss of generality, we may assume that $\mathcal{C} = \mathcal{X}_{h+1} \cup \mathcal{X}_h$. Let $\mathcal{X}_{h+1} = \{(1), \dots, (h+1)\}$ where $t_{(1)} \leq \cdots \leq t_{(h+1)}$. 
-
-$\mathcal{X}_h$ and $\mathcal{X}_{h+1}$ remain optimal in the modified market if the following sets of inequalities are satisfied:
-\begin{align} 
-\forall i \in \mathcal{X}_{h+1} , \qquad w(\mathcal{X}_{h+1} \setminus i)& < w(\mathcal{X}_h)\\
-\iff \label{linearsystemfortransformingtocommonf}
-\begin{bmatrix}
-0 & 1/2^{h} & 1/2^{h-1} & \cdots & 1/2^{2} & 1/2 \\
-1/2^{h}  & 0 & 1/2^{h-1} & \cdots & 1/2^{2} & 1/2 \\
-1/2^{h} & 1/2^{h-1} & 0&\cdots & 1/2^{2} & 1/2 \\
-\vdots & \vdots & \vdots & \ddots & \vdots &\vdots\\
-1/2^{h} & 1/2^{h-1} & 1/2^{h-2} &\cdots & 0& 1/2 \\
-1/2^{h} & 1/2^{h-1} & 1/2^{h-2} &\cdots & 1/2^{2} &0\\
-\end{bmatrix}
-\begin{bmatrix}
-t_{(1)} \\
-t_{(2)} \\
-t_{(3)} \\
-\vdots \\
-t_{(h)} \\
-t_{(h+1)} \\
-\end{bmatrix}
-&<
-\begin{bmatrix}
-%w(\mathcal{X}_h) - \varepsilon_1 \\
-%w(\mathcal{X}_h) - \varepsilon_2 \\
-%w(\mathcal{X}_h)- \varepsilon_3 \\
-%\vdots \\
-%w(\mathcal{X}_h) - \varepsilon_h \\
-%w(\mathcal{X}_h) - \varepsilon_{h+1} \\
-w(\mathcal{X}_h) \\
-w(\mathcal{X}_h) \\
-w(\mathcal{X}_h) \\
-\vdots\\
-w(\mathcal{X}_h) \\
-w(\mathcal{X}_h) \\
-\end{bmatrix}
+Suppose $k \notin \mathcal{X}_h$.  To get a contradiction, assume that $v(\mathcal{Y}_h) < v(\mathcal{X}_h)$. Then
+\begin{align}
+v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
+&= (1 - f_k) v(\mathcal{Y}_h) + f_k t_k \\
+& < (1 - f_k) v(\mathcal{X}_h) + f_k \operatorname{E}\bigl[ \max\{X_h, t_k \} \bigr]\\
+&=  v(\mathcal{X}_h\cup \{k\})
 \end{align}
-and
-\begin{align} 
-\label{linearsystemfortransformingtocommonf2}
-\forall i \in \mathcal{X}_{h+1} , \qquad w(\mathcal{X}_{h+1}) = \sum_{l=1}^{h+1} t_{(l)} 1/2^l  > w(\mathcal{X}_h\cup\{i\})
-\end{align}
-The $i$th row of this system says that $w(\mathcal{X}_{h+1} \setminus (i)) \leq v_h - \epsilon_i$, where $\epsilon_i = v_h - w(\mathcal{X}_{h+1} \setminus (i)) >0$. We will now modify the $t_j$ values so that $w(\mathcal{X}_h) = v(\mathcal{X}_h)$ and \eqref{linearsystemfortransformingtocommonf} holds with equality.
+contradicts the optimality of $\mathcal{X}_{h+1}$.
 
-To ensure that $\mathcal{X}_h$ is still optimal at $h$ in 
+Now suppose that $k \in \mathcal{X}_h$. We can write $\mathcal{X}_h = \mathcal{Y}_{h-1} \cup \{k\}$, where $ \mathcal{Y}_{h-1}$ is some portfolio of size $h-1$. It suffices to show that $ \mathcal{Y}_{h-1} \subset \mathcal{Y}_h$. By definition, $\mathcal{Y}_{h-1}$ (respectively, $\mathcal{Y}_{h}$) maximizes the function $v(\mathcal{Y}\cup\{k\})$ over portfolios of size $h-1$ (respectively, $h$) that do not include $k$. That is, $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$ must be the optimal \emph{complements} to the singleton portfolio $\{k\}$.
 
-The right 
-
-
-
-
-
+We will use the function $w(\mathcal{Y})$ to grade portfolios $\mathcal{Y} \subseteq \mathcal{C} \setminus k$ according to how well they complement $\{k\}$. To construct $w(\mathcal{Y})$, let $\tilde t_j$ denote the expected utility Alma receives from school $c_j$ \emph{given} that she has been admitted to $c_j$ and applied to $c_k$. For $j < k$, including $j = 0$, this is $\tilde t_j = t_j (1- f_k) + t_k f_k$; for $j > k $, this is $\tilde t_j = t_j$. Therefore, 
+\begin{equation}v(\mathcal{Y}\cup\{k\}) = \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y})\end{equation}
+The transformation to $\tilde t$ does not change the order of the $t_j$-values. Therefore, the expression on the right is itself a portfolio valuation function. In the corresponding market, $t$ is replaced by $\tilde t$ and $\mathcal{C}$ is replaced by $\mathcal{C}\setminus k$. Next, define $\bar t_j = \tilde t_j - \tilde t_0$ so that $\bar t_0 = 0$ and let
+\begin{equation}  \label{wYvXminusconst}
+w(\mathcal{Y}) = \sum_{j \in \{0\} \cup \mathcal{Y}} \bar t_j p_j(\mathcal{Y}) =  \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y}) = v(\mathcal{Y}\cup\{k\}) - t_0 \end{equation}
+where the first equality follows by Theorem $\ref{assumetzerozero}$. This identity says that the optimal complements to $\{k\}$, given by $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$, are themselves optimal portfolios of size $h-1$ and $h$ for the market whose objective function is $w(\mathcal{Y})$. By the inductive hypothesis, $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof. 
+%%Combining the transformations above, we have 
+%%\begin{align}
+%%\bar t_j = 
+%%\begin{cases}
+%%t_j (1 - f_k), \quad & j < k \\
+%%t_j - t_k f_k, \quad& j> k
+%%\end{cases}
+%%\end{align}
+%%which is equivalent to incorporating the fact that $1 - f_k x_k = 1 - f_k$ into the utility values associated with the first $k$ terms of $v(x)$.
+%
+%The validity of this transformation implies that the optimal $(h+1)$-portfolio over $\mathcal{C}$ must include, as a subset, the optimal portfolio among the portfolios of size $h$ that include school $k$. But $\mathcal{X}_h$ is the globally optimal $h$-portfolio. Therefore, $\mathcal{X}_h \subset \mathcal{X}_{h+1}$, which completes the proof. re, the solution to \eqref{solveforoptimalxwithk}, which maximizes $v(\mathcal{X}_{h+1})$, is equivalent to the union of $k$ and the solution to \eqref{transformedelimck}, which gives the optimal $h$-portfolio over $\mathcal{C} \setminus k$.  
+%
 \end{proof}
-
-%(Inductive step)
-%Assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and we will show that  $\mathcal{X}_h \subset  \mathcal{X}_{h+1}$. Pick $j \in \mathcal{X}_{h+1} \setminus \mathcal{X}_h$ and let $\mathcal{Y}_h = \mathcal{X}_{h+1} \setminus j$.
-%Also, for each portfolio $\mathcal{X}$, let the random variable $X = \max\{t_j Z_j : j \in \mathcal{X}\}$ denote the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. 
-%
-%If the theorem is false, then it must be the case that both $v(\mathcal{X}_h) > v(\mathcal{Y}_h)$ and $v(\mathcal{X}_{h+1}) > v(\mathcal{X}_h \cup\{j\})$. That is,
-%\begin{align}
-%&&v(\mathcal{X}_{h+1}) = v(\mathcal{Y}_h \cup\{j\}) &> v(\mathcal{X}_h \cup\{j\}) \\
-%\iff \quad&& (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &> (1 - f_j) v(\mathcal{X}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-%&&&\geq (1 - f_j) v(\mathcal{Y}_h) + f_j \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-%\implies \quad && \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr]\\
-%\implies \quad && \operatorname{E}\bigl[ \max\{Y_h - t_j, 0 \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h- t_j, 0 \} \bigr]
-%\end{align}
-%On the other hand, 
-%\begin{align}
-%&&\Delta v(\mathcal{Y}_h, j) &> \Delta v(\mathcal{X}_h, j) \\
-%\implies \quad && \operatorname{E}\bigl[ \max\{0, t_j - Y_h \} \bigr] &>  \operatorname{E}\bigl[ \max\{0, t_j - X_h \} \bigr]
-%\end{align}
-%(WIP.)  
-
-
-%
-%This says that if Alma is guaranteed admission to $c_j$ and allowed to choose $h$ additional schools to apply to, she would do better by choosing $\mathcal{Y}_h$ than $\mathcal{X}_h$. 
-%If $t_k > t_j$ for all $k \in \mathcal{Y}_h$, then the value of $\max\{Y_h, t_j \} $ differs from that of $Y_h$ only when Alma is rejected from all schools in $Y_h$:
-%\begin{equation} \operatorname{E}\bigl[ \max\{Y_h, t_j \} \bigr] = v(\mathcal{Y}_h) + t_j \prod_{k \in \mathcal{Y}_h} (1 -f_k)
-%\end{equation}
-%Meanwhile, since being guaranteed admission to $t_k$ improves the value of $X_h$ in this case,
-%\begin{equation} \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \geq v(\mathcal{X}_h) + t_j \prod_{k \in \mathcal{X}_h} (1 -f_k)
-%\end{equation}
-%and concenating these equations yields $v(\mathcal{Y}_h) > v(\mathcal{X}_h)$, a contradiction. 
-%
-%On the other hand, if there is a school $k$ in $\mathcal{Y}_h$ having $t_k \leq t_j$, then removing this school from $\mathcal{Y}_h$ does not change the expected value of $ \max\{Y_h, t_j \} $. Therefore
-%\begin{equation}
-%\operatorname{E}\bigl[ \max\{Y_h^{\setminus k}, t_j \} \bigr] >  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \geq \operatorname{E}\bigl[ \max\{X_{h-1}, t_j \} \bigr]
-%\end{equation}
-%By repeating this logic, we must eventually encounter a subportfolio of $Y_h$ consisting \emph{entirely} of schools for which $t_k > t_j$, yielding the contradiction above. 
-
-%\begin{align}
-%&&\operatorname{E}\bigl[ \max\{Y_h^{\setminus k}, t_j \} \bigr] &>  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-%\implies \quad&&  (1 - f_j) v(\mathcal{X}_{h-1})  + f_j \operatorname{E}\bigl[ \max\{Y_h^{\setminus k}, t_j \} \bigr]
-%&> (1 - f_j)  v(\mathcal{X}_{h-1}) + f_j  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-%&&&\geq v(\mathcal{X}_{h-1}) + f_j  \operatorname{E}\bigl[ \max\{X_h, t_j \} \bigr] \\
-%\end{align}
-
-%By nested induction on $h$ and the number of schools. Let $\mathcal{C}^{(i)} = \{1 \dots i\}$ denote the submarket consisting of the first $i$ schools, and let $\mathcal{X}_h^{(i)}$ denote the optimal $h$-portfolio over the schools in $\mathcal{C}^{(i)}$, which is defined for $i = 1 \cdots m$ and $h = 1 \cdots i$. First, we will show the base case  $\mathcal{X}_1 \subset \mathcal{X}_2$ holds for any market (step 1). Then, we will show that if the optimal portfolios over $\mathcal{C}^{(i)}$ are nested, then so are the optimal portfolios over $\mathcal{C}^{(i+1)}$ (step 2), and therefore those over $\mathcal{C}$ itself. 
-
-
-%step 2. Assume that
-%\begin{equation} \label{himinusonenested}
-%\mathcal{X}_1^{(i-1)} \subset \cdots \subset \mathcal{X}_{h-1}^{(i-1)}
-%\end{equation}
-%We want to show that
-%\begin{equation} \label{hplusoneiplusonenested}
-%\mathcal{X}_1^{(i)} \subset \cdots \subset \mathcal{X}_{h}^{(i)}
-%\end{equation}
-%We will proceed by induction. By the argument of step 1, $\mathcal{X}_1^{(i)} \subset  \mathcal{X}_2^{(i)}$. Now assume that $\mathcal{X}_1^{(i)} \subset  \cdots \subset \mathcal{X}_{j-1}^{(i)}$, and we will show that $\mathcal{X}_{j-1}^{(i)} \subset \mathcal{X}_{j}^{(i)}$. 
-%
-%If $\mathcal{X}_{j}^{(i)}$ contains $i$, then
-%\begin{equation} \label{xjiexpanded}
-%v(\mathcal{X}_{j}^{(i)}) = (1 - f_i) v(\mathcal{X}_{j}^{(i)}\setminus i) + f_i t_i
-%\end{equation}
-%Optimality now requires that $\mathcal{X}_{j}^{(i)}\setminus i = \mathcal{X}_{j-1}^{(i-1)}$. If $\mathcal{X}_{j-1}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j-1}^{(i-1)}  = \mathcal{X}_{j-1}^{(i)}$ and we are done. If $\mathcal{X}_{j-1}^{(i)}$ contains $i$, then expanding the expression for $\mathcal{X}_{j-1}^{(i)}$ in the manner of \eqref{xjiexpanded} implies $\mathcal{X}_{j-1}^{(i)} =  \mathcal{X}_{j-2}^{(i-1)}\cup\{i\}$. Since $i \in \mathcal{X}_{j}^{(i)}$ and $\mathcal{X}_{j-2}^{(i-1)} \subset  \mathcal{X}_{j-1}^{(i-1)}$ by the inductive hypothesis, the statement follows. 
-%
-%If $\mathcal{X}_{j}^{(i)}$ does not contain $i$, then $\mathcal{X}_{j}^{(i)} = \mathcal{X}_{j}^{(i-1)}$ since the former is optimal over a larger set of schools. It follows by \eqref{himinusonenested} that $\mathcal{X}_{j-1}^{(i-1)} \subset \mathcal{X}_{j}^{(i)}$. %Now, if $\mathcal{X}_{j-1}^{(i-1)} $ does not contain $i$, we are done; if not, the argument of the previous paragraph implies that $\mathcal{X}_{j-2}^{(i-1)} \subset  \mathcal{X}_{j-1}^{(i-1)}$. 
-% This completes the proof because ...·
-
-
-
-
-
-%
-%For the inductive step, assume that $\mathcal{X}_1 \subset \cdots \subset \mathcal{X}_h$, and let $\mathcal{X}_{h+1} = \mathcal{X}_h\cup \{j\}$ denote the best nested optimal $(h+1)$-portfolio, where $k = \argmax_{k \in \mathcal{C} \setminus \mathcal{X}_h }  \{ \Delta v(\mathcal{X}_h, k) \}$. We will show that $\mathcal{X}_{h+1}$ is globally optimal. To get a contradiction, suppose that $v(\mathcal{Y}_{h+1}) > v(\mathcal{X}_{h+1})$ for some other $(h+1)$ portfolio.
-%
-%Let $\mathcal{Y}_i$ denote the optimal $i$-portfolio comprised only of schools in $\mathcal{Y}_{h+1}$. Applying the inductive hypothesis, we have $\mathcal{Y}_1 \subset \cdots \subset \mathcal{Y}_{h+1}$. We can express the valuation of $\mathcal{Y}_{h+1}$ as follows.
-%\begin{align}
-%\mathcal{Y}_{h+1} &= 
-%\end{align}
 
 Applying the result above yields an efficient algorithm for the optimal portfolio: Start with the empty set and add schools one at a time, maximizing $v(\mathcal{X}\cup \{k\})$ at each addition. 
 
@@ -440,7 +359,7 @@ $\mathcal{X} \gets \O$\;
 Algorithm \ref{dynamicprogram} produces an optimal application portfolio in $O(h^2 m + m \log m)$ time.
 \end{theorem}
 \begin{proof}
-Optimality follows from Theorem \ref{nestedapplication}. At each of the $h$ iterations, there are $m - i +1$ candidates for $k$ which must be inspected. Computing $v(\cdot)$ is $\Theta(h)$ using \eqref{closedformportfoliovaluation}. Adding the $O(m\log m)$ time required to sort the entries of $t$ yields the result.
+Optimality follows from Theorem \ref{nestedapplication}. At each of the $h$ iterations, there are $m - i +1$ candidates for $k$ which must be inspected. Computing $v(\cdot)$ is $\Theta(h)$ using \eqref{closedformportfoliovaluationX}. Adding the $O(m\log m)$ time required to sort the entries of $t$ yields the result.
 \end{proof}
 
 The computation time can be further reduced by observing that the school added at each iteration must be maximal in the tuple $(f_j, t_j)$. That is, if $f_j \geq f_k \wedge t_j \geq t_k$ holds for two candidate schools $j$ and $k$, then $k$ cannot be the uniquely optimal addition, since admission to $j$ is both weakly preferable and weakly more probable. Therefore, we may restrict our attention to the subset of schools \emph{not} dominated by another in this way.
