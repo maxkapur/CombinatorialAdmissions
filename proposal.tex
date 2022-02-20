@@ -199,6 +199,7 @@ Let $\mathcal{X}$ denote the set of schools to which Alma applies, called her \e
 \begin{definition}[Portfolio valuation function]
 $v(\mathcal{X}) = \operatorname{E}\left[ \max\{t_j Z_j : j \in \mathcal{X}\} \right]$.
 \end{definition}
+It is helpful to define the random variable $X  = \max\{ t_j Z_j : j \in \mathcal{X}\}$ as the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$.
 
 Let $p_j(\mathcal{X})$ denote the probability that Alma attends $c_j$. Alma attends $c_j$ if and only if she \emph{applies} to $c_j$, is \emph{admitted} to $c_j$, and is \emph{rejected} from any school she prefers to $c_j$; that is, any school with higher index. Hence, for $j= 0\dots m$,
 \begin{align}
@@ -314,7 +315,7 @@ Suppose $k \notin \mathcal{X}_h$.  To get a contradiction, assume that $v(\mathc
 \begin{align}
 v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
 &= (1 - f_k) v(\mathcal{Y}_h) + f_k t_k \\
-& < (1 - f_k) v(\mathcal{X}_h) + f_k \operatorname{E}\bigl[ \max\bigl\{t_k, \max\{t_j Z_j : j \in X_h\} \bigr\} \bigr]\\
+& < (1 - f_k) v(\mathcal{X}_h) + f_k \operatorname{E}\bigl[ \max\{t_k, X_h\}\bigr]\\
 &=  v(\mathcal{X}_h\cup \{k\})
 \end{align}
 contradicts the optimality of $\mathcal{X}_{h+1}$.
@@ -327,7 +328,7 @@ The transformation to $\tilde t$ does not change the order of the $t_j$-values. 
 \begin{equation}  \label{wYvXminusconst}
 w(\mathcal{Y})
 = \sum_{j \in \{0\} \cup \mathcal{Y}} \bar t_j p_j(\mathcal{Y})
-= \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y})- \tilde t_0
+= \sum_{j \in \{0\} \cup \mathcal{Y}} \tilde t_j p_j(\mathcal{Y})- \tilde t_k f_k
 = v(\mathcal{Y}\cup\{k\}) - \tilde t_0 \end{equation}
 where the second equality follows from Theorem $\ref{assumetzerozero}$. This identity says that the optimal complements to $\{k\}$, given by $\mathcal{Y}_{h-1}$ and $\mathcal{Y}_h$, are themselves optimal portfolios of size $h-1$ and $h$ for the market whose objective function is $w(\mathcal{Y})$. Since $\bar t_0 = 0$ in the latter market, the inductive hypothesis implies that $\mathcal{Y}_{h-1} \subset \mathcal{Y}_h$, which completes the proof.\footnote{We thank Yim Seho for discovering this critical transformation.}
 \end{proof}
@@ -467,14 +468,74 @@ Let $t = (3, 3, 4)$, $Z_1 \sim \operatorname{Bernoulli}(0.5)$, $Z_2 = 1 - Z_1$, 
 
 
 
+\subsection{Extension to heterogeneous application costs}
+In this section, we consider a more general problem in which the constant $g_j$ represents the \emph{cost} of applying to $c_j$ and the student, whom we now call Ellis, has a \emph{budget} of $H$ to spend on college applications. With minimal loss of generality, we assume that $g_j \in \mathbb{N}$ for $j = 1\dots m$ and $H \in\mathbb{N}$. Applying Theorem \ref{assumetzerozero}, we assume $t_0 = 0$ and disregard $c_0$.
 
+\begin{definition}[Ellis's problem]
+Ellis's optimal college application portfolio is given by the solution to the following integer nonlinear program:
+\begin{align}
+\begin{split}
+\text{maximize}\quad & v(x) = \sum_{j=1}^m x_j t_j f_j \prod_{j’ = j+1}^m (1 - f_{j’} x_{j’}) \\
+\text{subject to}\quad & \sum_{j=1}^m g_j x_j \leq H \\
+&x_j \in \{0, 1\}, \quad j = 1\dots m
+\end{split}
+\end{align}
+\end{definition}
 
+The optima for Ellis's problem are not necessarily nested, nor is the number of schools in the optimal portfolio necessarily increasing in $H$. For example, if
+$f = (0.5, 0.5, 0.5)$, $t = (10, 3, 2020)$, and $g = (1, 1, 3)$,
+then it is obvious that the optimal portfolio for $H = 2$ is $\{1, 2\}$ while that for $H = 3$ is $\{3\}$. 
 
+We will provide an algorithmic solution to Ellis's problem that runs in $O(Hm + m\log m)$ time and $O(m)$ space. The algorithm resembles common recursive algorithms for the binary knapsack problem. Because we cannot assume that $H \leq m$ (as was the case in Alma's problem), this represents a quasipolynomial-time solution. %Cite (\emph{Wikipedia}, s.v. "Knapsack problem") and Garey and Johnson
 
+For $j = 0 \dots m$ and $h = 0 \dots H$, let $\mathcal{X}[j, h]$ denote the optimal portfolio using only the schools $\{ 1 \dots j\}$ and costing no more than $h$, and let $V[j,h] = v(\mathcal{X}[j, h])$.  It is clear that for $j = 0\dots m$, $\mathcal{X}[j, 0] = \O$ and $V[j, 0] = 0$.  For convenience, we also define $V[j, h] = -\infty$ for all $h < 0$.
 
+For the remaining indices, $\mathcal{X}[j, h]$ either contains $j$ or does not. If it does not contain $j$, then $\mathcal{X}[j, h] = \mathcal{X}[j-1, h]$. On the other hand, if  $\mathcal{X}[j, h]$ contains $j$, then its value is $(1 - f_j) v(\mathcal{X}[j, h]\setminus \{j\}) + f_j t_j$. This requires $\mathcal{X}[j, h]\setminus \{j\}$ to make optimal use of the remaining budget over the remaining schools; that is, $\mathcal{X}[j, h] = \mathcal{X}[j-1, h - g_j] \cup\{j\}$. From these observations, we obtain the following Bellman equation for $ j = 1\dots m$ and $h = 1\dots H$:
+\begin{align}
+V[j, h] = \max\bigl\{ V[j-1, h], (1 - f_j) V[j-1, h-g_j] + f_j t_j \bigr\}
+\end{align}
+with the convention that $ -\infty \cdot 0 = -\infty$. The corresponding optimal portfolios can be computed by observing that $\mathcal{X}[j, h]$ contains $j$ if and only if $V[j, h]> V[j-1, h]$. The optimal solution is given by $\mathcal{X}[m, H]$. The algorithm below performs these computations and outputs the optimal portfolio $\mathcal{X}$. 
 
+\begin{algorithm}[H] 
+%\DontPrintSemicolon
+\caption{Optimal portfolio algorithm for Ellis's problem.} \label{algorithmforhetg}
+\KwData{Utility values $t \in[0, \infty)^m$, admissions probabilities $f \in [0, 1]^m$, application costs $g \in \mathbb{N}^m$, budget $H \in\mathbb{N}$.}
+Index schools in ascending order by $t$\;
+\SetKwProg{Fn}{function}{ do}{end}
+\Fn{$V(j, h)$}{
+	\lIf{$j = 0$ or $h=0$}{\Return{$0$}}
+	\lElseIf{$h < g_j$}{\Return{$-\infty$}}
+	\lElse{\Return{$\max\bigl\{ V(j-1, h), (1 - f_j) V(j-1, h-g_j) + f_j t_j \bigr\}$}}
+}
+%\lFor{$j=1\dots m$}
+%{$\operatorname{push!}\bigl(\mathtt{H}, (j, f_j, t_j)\bigr)$}
+%\For{$i=1\dots h$}
+%{
+%    $\mathtt{D} \gets \operatorname{pop!}(\mathtt{H})$\;
+%    $\operatorname{append!}(\mathtt{X}, \mathtt{D.j})$\;
+%     \lIfElse{$i=1$}{$\operatorname{append!}(\mathtt{V}, \mathtt{D.f}\cdot\mathtt{D.t})$}
+%     {$\operatorname{append!}(\mathtt{V}, \mathtt{V[i-1]} + \mathtt{D.f}\cdot\mathtt{D.t})$}
+%    \For{$\mathtt{E} \in \mathtt{H}$}
+%	{
+%	\lIfElse{$\mathtt{E.j} < \mathtt{D.j}$}{$\mathtt{E.t} \gets  \mathtt{E.t} \cdot(1 -  \mathtt{D.f})$}{$\mathtt{E.t} \gets  \mathtt{E.t} -  \mathtt{D.f}\cdot\mathtt{D.t}$}
+%	}
+%}
+$h = H$\;
+$\mathcal{X} \gets \O$\;
+\For{$j = m, m-1, \dots, 1$}{
+	\If{$V(j-1, h) < V(j, h)$}{
+		$\mathcal{X} \gets \mathcal{X}\cup\{j\}$\; 
+		$h \gets h - g_j$\;
+	}
+}
+\Return{$\mathcal{X}$}
+\end{algorithm}
 
+\begin{proposition}[Validity of Algorithm \ref{algorithmforhetg}]
+Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio in $O(H m + m \log m)$ time and $O(m)$ space.
+\end{proposition}
 
+The algorithm above is written in a top-down recursive form that computes only the values of $V[j, h]$ necessary to obtain $V[m, H]$. In the worst case, the number of entries computed is $O(Hm)$. Because $V[j, h]$ is evaluated lazily, it is possible that some entries are computed more than once; to prevent this, its entries can be stored in a lookup table as they are computed, which decreases the computation time but increases the storage requirement from $O(m)$ to $O(Hm)$. 
 
 
 
