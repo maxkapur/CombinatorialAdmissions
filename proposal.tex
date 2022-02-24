@@ -256,22 +256,55 @@ Notice that for a given school $c_j$, the expected utility associated with apply
 Apply to the $h$ schools having the highest expected utility $t_j f_j$.
 \end{definition}
 The basic error of this algorithm is that it maximizes $\operatorname{E}\left[\sum t_j Z_j \right]$ instead of $\operatorname{E}\left[\max \{t_j Z_j\} \right]$. The latter is what Alma is truly concerned with, since in the end she can attend only one school.
-\begin{theorem}
-The greedy algorithm can produce a suboptimal solution.
-\end{theorem}
-\begin{proof}
+\begin{example}
 Suppose $m=3$, $q=2$, and
 \begin{align*}
 t &= (70, 80, 90) \\
 f &= (0.4, 0.4, 0.3) \\
 \implies t * f &= (28, 32, 27)
 \end{align*}
-The greedy algorithm picks $\tilde x = (1, 1, 0)$ with 
+The na\"ive algorithm picks $\tilde x = (1, 1, 0)$ with 
 \[v(\tilde x) = 70(0.4)(1-0.4) + 80(0.4) = 48.8\]
 But $x = (0, 1, 1)$ with
 \[v(x) = 80(0.4)(1-0.3) + 90(0.3) = 49.4\]
-is the optimal solution.
+is the optimal solution. This shows that the na\"ive algorithm can produce a suboptimal solution.
+\end{example}
+
+In fact, the na\"ive algorithm is a $(1/h)$-approximation algorithm for Alma’s problem, as expressed in the following theorem.
+
+\begin{theorem} \label{oneoverhopt}
+When the application limit is $h$, let $\mathcal{X}_h$ denote the optimal portfolio, and $\mathcal{T}_h$ the set of the $h$ schools having the largest values of $t_j f_j$. Then $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$. 
+\end{theorem}
+\begin{proof}
+Because $\mathcal{T}_h$ maximizes the quantity $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]$, we have
+\begin{align} \label{oneoverhopt}
+\begin{split}
+v(\mathcal{X}_h) &= \operatorname{E}\bigl[ \max_{j \in \mathcal{X}_h}\{ t_j Z_j \}\bigr] \leq \operatorname{E}\bigl[ \sum_{j \in \mathcal{X}_h}\{ t_j Z_j \}\bigr] \leq \operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr] \\
+&= h  \operatorname{E}\bigl[ \tfrac{1}{h} \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]
+\leq h  \operatorname{E}\bigl[ \max_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]
+= h\,v(\mathcal{T}_h)
+\end{split}
+\end{align}
+where the final inequality follows from the concavity of the $\max\{\}$ operator.
 \end{proof}
+
+The following example establishes the tightness of the approximation factor. 
+
+\begin{example} \label{tightexampleforoneoverhopt}
+Pick any $h$ and let $m = 2h$. For a small constant $\varepsilon \in (0, 1)$, let
+\begin{align*}
+t &= \Bigl(\,\underbrace{1,  \dots, 1}_{h},\;
+\underbrace{\varepsilon^{-1}, \varepsilon^{-2}, \dots, \varepsilon^{-(h-1)}, \varepsilon^{-h}}_{h}\,\Bigr) \\
+\text{and}\quad f &= \Bigl(\,\underbrace{1,  \dots, 1}_{h},\;
+\underbrace{\varepsilon^{1}, \varepsilon^{2}, \dots, \varepsilon^{h-1}, \varepsilon^{h}}_{h}\,\Bigr)
+\end{align*}
+Since all $t_j f_j = 1$, the na\"ive algorithm can choose $\mathcal{T}_h = \{1, \dots, h\}$, with $v(\mathcal{T}_h) = 1$. But optimal solution is $\mathcal{X}_h = \{h+1, \dots, m\}$, with
+\begin{equation*}
+v(\mathcal{X}_h) = \sum_{j= h +1}^m \Bigl( t_j f_j \prod_{j' = j+1}^m (1 - f_{j'}) \Bigr) =  \sum_{j= 1}^h  (1 - \varepsilon)^{j} \approx h
+\end{equation*}
+Thus, as $\epsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h) \to 1/h$. (The optimality of $\mathcal{X}_h$ follows from the fact that it achieves the upper bound of Theorem \ref{oneoverhopt}.)
+\end{example}
+
 Hope is not lost. We can still find the optimal solution in time polynomial in $h$ and $m$, as we will now show.
 
 \ifEN \subsection{Solution}  \else \subsection{풀이} \fi
@@ -315,10 +348,12 @@ which is a contradiction.
 
 Suppose $k \notin \mathcal{X}_h$.  To get a contradiction, assume that $v(\mathcal{Y}_h) < v(\mathcal{X}_h)$. Then
 \begin{align}
+\begin{split}
 v(\mathcal{X}_{h+1})&= v(\mathcal{Y}_{h} \cup \{k\}) \\
 &= (1 - f_k) v(\mathcal{Y}_h) + f_k t_k \\
 & < (1 - f_k) v(\mathcal{X}_h) + f_k \operatorname{E}\bigl[ \max\{t_k, X_h\}\bigr]\\
 &=  v(\mathcal{X}_h\cup \{k\})
+\end{split}
 \end{align}
 contradicts the optimality of $\mathcal{X}_{h+1}$.
 
@@ -358,23 +393,23 @@ Applying the result above yields an efficient algorithm for the optimal portfoli
 %Optimality follows from Theorem \ref{nestedapplication}. Sorting $t$ is  $O(m \log m)$. At each of the $h$ iterations, there are $O(m)$ candidates for $k$, and computing $v(\mathcal{X}\cup \{k\})$ is $O(h)$ using \eqref{closedformportfoliovaluationX}; therefore, the time complexity of the main loop is $O(h^2 m)$. 
 %\end{proof}
 
-We reduce the computation time to $O(hm  + m\log m)$ by taking advantage of the transformation from the inductive step in the proof of Theorem \ref{nestedapplication}. Once school $k$ is added to $\mathcal{X}$, we remove it from the set $\mathcal{C}\setminus \mathcal{X}$ of candidates, and update the $t_j$-values of the remaining schools according to the following transformation:
+We reduce the computation time to $O(hm)$ by taking advantage of the transformation from the inductive step in the proof of Theorem \ref{nestedapplication}. Once school $k$ is added to $\mathcal{X}$, we remove it from the set $\mathcal{C}\setminus \mathcal{X}$ of candidates, and update the $t_j$-values of the remaining schools according to the following transformation:
 \begin{align}\label{howtotransformfj}
 \bar t_j = 
 \begin{cases}
-t_j (1 - f_k), \quad & j < k \\
-t_j - t_k f_k, \quad& j> k
+t_j (1 - f_k), \quad & t_j \leq t_k \\
+t_j - t_k f_k, \quad& t_j > t_k
 \end{cases}
 \end{align}
-It is easy to verify that this is the composition of the two transformations (from $t$ to $\tilde t$, and from $\tilde t$ to $\bar t$) given in the proof. Now, the \emph{next} school added must be the optimal singleton portfolio in the modified market. But the optimal singleton portfolio consists simply of the school with the highest value of $f_j \bar t_j$. Therefore, by updating the $t_j$-values at each iteration according to \eqref{howtotransformfj}, we eliminate the need to compute $v(\mathcal{X})$ entirely.
+It is easy to verify that this is the composition of the two transformations (from $t$ to $\tilde t$, and from $\tilde t$ to $\bar t$) given in the proof. Now, the \emph{next} school added must be the optimal singleton portfolio in the modified market. But the optimal singleton portfolio consists simply of the school with the highest value of $f_j \bar t_j$. Therefore, by updating the $t_j$-values at each iteration according to \eqref{howtotransformfj}, we eliminate the need to compute $v(\mathcal{X})$ entirely. Moreover, this algorithm does not require the schools to be indexed in ascending order by $t_j$, which removes the $O(m\log m)$ sorting cost.
  
-The algorithm below outputs a list $\mathtt{X}$ of the $h$ schools to which Alma should apply. The schools appear in the order of entry such that when the algorithm is run with $h=m$, the optimal portfolio of size $h$ is given by $\mathcal{X}_h = \{\mathtt{X[1]}, \dots, \mathtt{X[h]}\}$. The entries of the list $\mathtt{V}$ give the valuation thereof.
+The algorithm below outputs a list $\mathtt{X}$ of the $h$ schools to which Alma should apply. The schools appear in the order of entry such that when the algorithm is run with $h=m$, the optimal portfolio of size $h$ is given by $\mathcal{X}_h = \{\mathtt{X[1]}, \dots, \mathtt{X[h]}\}$. The entries of the list $\mathtt{V}$ give the valuation thereof. 
 
 \begin{algorithm}[H] 
 %\DontPrintSemicolon
 \caption{Optimal portfolio algorithm for Alma’s problem.} \label{algorithmforlargeh}
 \KwData{Utility values $t \in[0, \infty)^m$, admissions probabilities $f \in [0, 1]^m$, application limit $h \leq m$.}
-Index schools in ascending order by $t$\;
+%Index schools in ascending order by $t$\;
 $\mathcal{C} \gets \{1 \dots m\}$\;
 $\mathtt{X, V} \gets $ empty lists\;
 %$\mathtt{L} \gets $, an empty heap of named tuples $\mathtt{C}$ ordered by $\mathtt{C.f}\cdot\mathtt{C.t}$\;
@@ -389,7 +424,7 @@ $\mathtt{X, V} \gets $ empty lists\;
      {$\operatorname{append!}(\mathtt{V}, \mathtt{V[i-1]} + f_k t_k)$}
     \For{$j \in \mathcal{C}$}
 	{
-	\lIfElse{$j < k$}{$t_j \gets  t_j (1 -  f_k)$}{$t_j \gets  t_j -  f_k t_k$}
+	\lIfElse{$t_j \leq t_k$}{$t_j \gets  t_j (1 -  f_k)$}{$t_j \gets  t_j -  f_k t_k$}
 	}
 %    \For{$\mathtt{E} \in \mathtt{H}: 1\leq \mathtt{E.j} < \mathtt{D.j}$}
 %	{
@@ -405,10 +440,10 @@ $\mathtt{X, V} \gets $ empty lists\;
 
 
 \begin{theorem}[Validity of Algorithm \ref{algorithmforlargeh}]
-Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio for Alma's problem in $O(h m + m \log m)$ time.
+Algorithm \ref{algorithmforlargeh} produces an optimal application portfolio for Alma's problem in $O(h m)$ time.
 \end{theorem}
 \begin{proof}
-Optimality follows from the proof of Theorem \ref{nestedapplication}. Sorting the schools by $t_j$ is $O(m \log m)$. Suppose $\mathcal{C}$ is stored as a list. Then at each of the $h$ iterations of the main loop, finding the top school costs $O(m)$, and the $t_j$-values of the remaining $O(m)$ schools are each updated in unit time. Therefore, the overall time complexity is $O(h m + m\log m)$.
+Optimality follows from the proof of Theorem \ref{nestedapplication}. Suppose $\mathcal{C}$ is stored as a list. Then at each of the $h$ iterations of the main loop, finding the top school costs $O(m)$, and the $t_j$-values of the remaining $O(m)$ schools are each updated in unit time. Therefore, the overall time complexity is $O(h m)$.
 \end{proof}
 
 In our numerical experiments, we found it effective to store $\mathcal{C}$ as a binary max heap rather than a list. The heap is ordered according to the criterion $i \geq j \iff f_i t_i \geq f_j t_j$. Nominally, using a heap increases the cost of the main loop from $O(h m)$ to $O(hm \log m)$ because the heap is rebalanced when each $t_j$-value is updated. However, typical problem instances do not achieve this upper bound because the order of the $f_j t_j$-values changes only slightly between iterations. The cost of updating each $t_j$-value can be reduced to unit time using a Fibonacci heap (Fredman and Tarjan 1987), yielding the same overall computation time. 
@@ -422,162 +457,6 @@ In our numerical experiments, we found it effective to store $\mathcal{C}$ as a 
 %\begin{equation} l \in \operatorname{EF}(\mathcal{C}\setminus  \mathcal{X}_{h-1}) \end{equation}
 %where $l$ is the school added at iteration $h$ of Algorithm \ref{dynamicprogram}.
 %\end{proposition}
-
-
-
-\subsection{The na\"ive algorithm as an approximate solution}
-Let us analyze the performance of na\"ive algorithm (Definition \ref{naivealgorithm}) that picks the $h$ schools having the largest values of $t_j f_j$. Let $\mathcal{X}_h$ denote the optimal portfolio and $\mathcal{T}_h$ the output of the na\"ive algorithm when the application limit is $h$. It is easy to see that $\mathcal{T}_h$ is $1/h$-optimal; that is, $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/h$: Because $\mathcal{T}_h$ maximizes the quantity $\operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]$, we have
-\begin{align} \label{oneoverhopt}
-\begin{split}
-v(\mathcal{X}_h) &= \operatorname{E}\bigl[ \max_{j \in \mathcal{X}_h}\{ t_j Z_j \}\bigr] \leq \operatorname{E}\bigl[ \sum_{j \in \mathcal{X}_h}\{ t_j Z_j \}\bigr] \leq \operatorname{E}\bigl[ \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr] \\
-&= h  \operatorname{E}\bigl[ \tfrac{1}{h} \sum_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]
-\leq h  \operatorname{E}\bigl[ \max_{j \in \mathcal{T}_h}\{ t_j Z_j \}\bigr]
-= h\,v(\mathcal{T}_h)
-\end{split}
-\end{align}
-where the final inequality follows from the concavity of the $\max\{\}$ operator.  However, we can tighten this bound to $1/2$. 
-
-\begin{theorem}
-When the application limit is $h$, let $\mathcal{X}_h$ denote the optimal portfolio, and $\mathcal{T}_h$ the set of the $h$ schools having the largest values of $t_j f_j$. Then $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq 1/2$. 
-\end{theorem}
-
-\begin{proof}
-By induction on $h$. Let $k = \argmax_{j \in \mathcal{C}} \{ t_j f_j \}$.
-%We will make repeated use of the observation that when the elements of $\mathcal{A}$ are random variables taking nonnegative values,
-%\begin{equation} \label{meanmaxsumineq}
-%\frac{1}{|\mathcal{A}|} \sum_{a \in \mathcal{A}}\operatorname{E}[ a] \leq \operatorname{E}\Bigl[\max_{a \in \mathcal{A}}\{a\}\Bigr]\leq  \sum_{a \in \mathcal{A}}\operatorname{E}[ a] 
-%\end{equation}
-%which follows from concavity of the $\max\{\}$ operator and the linearity of expectations. 
-
-(Base case.) Clearly, $\mathcal{X}_1 = \mathcal{T}_1 = \{k\}$. Therefore $v(\mathcal{T}_1) / v(\mathcal{X}_1) = 1 \geq 1/2$.
-%It follows immediately from \eqref{oneoverhopt} that $v(\mathcal{T}_2) / v(\mathcal{X}_2) \geq 1/2$.
-%The following inequalities establish that $v(\mathcal{T}_2) / v(\mathcal{X}_2) \geq 1/2$.
-%\begin{align}
-%\begin{split}
-%v(\mathcal{X}_2) \leq v(\mathcal{X}_1) + v(\mathcal{X}_2 \setminus \mathcal{X}_1) \leq 2 v(\mathcal{X}_1) \leq 2 v(\mathcal{T}_2)
-%\end{split}
-%\end{align}
-%The first inequality follows from the observation that $ \operatorname{E}\bigl[\max\{\mathcal{A}\}\bigr] \leq \operatorname{E}\bigl[  \sum \mathcal{A} \bigr]$ when the elements of $\mathcal{A}$ are random variables taking nonnegative values. The second inequality follows from the optimality of $\mathcal{X}_1$. The third follows from the observation that $\mathcal{X}_1 = \mathcal{T}_1 \subset \mathcal{T}_2$.
-
-(Inductive step.) Suppose that $ v(\mathcal{T}_{h-1}) / v(\mathcal{X}_{h-1}) \geq 1/2$ for a generic market, and we will show that $v(\mathcal{T}_h)/v(\mathcal{X}_h) \geq 1/2$. It is evident that $ k \in \mathcal{T}_h \cap \mathcal{X}_h$. To get a contradiction, suppose that
-\begin{align} \label{inductivestepblock1}
-\begin{split}
-v(\mathcal{T}_h)& = (1 - f_k)  v(\mathcal{T}_h\setminus \{k\}) + f_k \operatorname{E}\bigl[\max\{ t_k, T_{h}\} \bigr] \\
-< \tfrac{1}{2} v(\mathcal{X}_h)&= \tfrac{1}{2} (1 - f_k)  v(\mathcal{X}_h\setminus \{k\}) + \tfrac{1}{2} f_k \operatorname{E}\bigl[\max\{ t_k, X_{h}\} \bigr]
-\end{split}
-\end{align}
-Let $\mathcal{S}_{h-1}$ and $\mathcal{Y}_{h-1}$ respectively denote the na\"ive solution and optimal portfolios of size $h-1$ when Alma is forbidden from applying to $k$. Clearly,  $\mathcal{S}_{h-1} = \mathcal{T}_h \setminus \{k\}$. From the inequality above, we have
-\begin{align}\label{inductivestepblock2}
-\begin{split}
-(1 - f_k)  v(\mathcal{S}_{h-1}) + f_k \operatorname{E}\bigl[\max\{ t_k, S_{h-1}\} \bigr] 
-&< \tfrac{1}{2} (1 - f_k)  v(\mathcal{X}_h\setminus \{k\}) + \tfrac{1}{2} f_k \operatorname{E}\bigl[\max\{ t_k, X_{h}\} \bigr] \\
-&\leq \tfrac{1}{2} (1 - f_k)  v(\mathcal{Y}_{h-1}) + \tfrac{1}{2} f_k \operatorname{E}\bigl[\max\{ t_k, X_{h}\} \bigr]\\
-&\leq  (1 - f_k)  v(\mathcal{S}_{h-1}) + \tfrac{1}{2} f_k \operatorname{E}\bigl[\max\{ t_k, X_{h}\} \bigr]
-\end{split}
-\end{align}
-where the final inequality comes from applying the inductive hypothesis to $v(\mathcal{Y}_{h-1})$. It follows that
-\begin{equation}\label{inductivestepblock3}
-\operatorname{E}\bigl[\max\{ t_k, S_{h-1}\} \bigr] < \tfrac{1}{2} \operatorname{E}\bigl[\max\{ t_k, X_{h}\} \bigr]
-\end{equation}
-%wrong:
-If the value of $t_k$ is increased, then the order of the $t_j f_j$-values does not change, and therefore neither do the sets $\mathcal{T}_h$ and $\mathcal{S}_{h-1}$. For the same reason, $k$ remains an element of $\mathcal{X}_j$. Therefore, the inequalities \eqref{inductivestepblock1}, \eqref{inductivestepblock2}, and \eqref{inductivestepblock3} should still hold. But if $t_k$ is increased past $t_m$, then  \eqref{inductivestepblock3} reads $t_k < \frac{1}{2} t_k$, a contradiction.
-\end{proof}
-
-%It is obvious that $\mathcal{T}_h = \mathcal{T}_{h-1} \cup \{k\}$ for some $k \in \mathcal{C} \setminus  \mathcal{T}_{h-1}$. 
-%Now we will show that $v(\mathcal{T}_h) / v(\mathcal{X}_h) \geq v(\mathcal{T}_{h-1}) / v(\mathcal{X}_{h-1})$. Pick $k \in \mathcal{T_h} \cap \mathcal{X_h}$. Then
-%\begin{align}
-%\begin{split}
-%\frac{v(\mathcal{T}_h)}{v(\mathcal{X}_h)}
-%&= \frac{(1 - f_k) v(\mathcal{T}_{h}\setminus \{k\}) + f_k \operatorname{E}\bigl[\max\{ t_k, T_{h-1}\} \bigr]}{v(\mathcal{X})}
-%\geq \frac{(1 - f_k) v(\mathcal{T}_{h}\setminus \{k\})  + f_k t_k}{v(\mathcal{X})} \\
-%&\geq \frac{(1 - f_l) v(\mathcal{T}_{h-1}) +  f_l t_l}{(1 - f_l) v(\mathcal{X}_{h-1}) + f_l t_l}
-%\geq  \frac{(1 - f_l) v(\mathcal{T}_{h-1})}{(1 - f_l) v(\mathcal{X}_{h-1})} \geq \theta
-%\end{split}
-%\end{align}
-
-%\argmax_{j\in \mathcal{T}_h \setminus \mathcal{X}_h} \{ t_j f_j\}$ and $l =  \argmax_{j\in \mathcal{X}_h} \{ t_j \}$. %By the argument given in the proof of Theorem \ref{nestedapplication}, $\mathcal{Y}_{h-1} = \mathcal{X}_h \setminus \{l\}$ maximizes $v(\mathcal{X})$ over $\mathcal{C} \setminus \{l\}$. Furthermore,
-%%wrong bc X_h-1 not necessarily X_h \ l
-%Since $\mathcal{X}_{h-1}$ is optimal over all of $\mathcal{C}$ and does not include $k$, it is also optimal over $\mathcal{C}\setminus \{k\}$. It is also evident that the output of the na\"ive algorithm for $\mathcal{C} \setminus \{k\}$ is $\mathcal{T}_{h-1}= \mathcal{T}_h \setminus \{k\}$.
-
-%If $k =l$, then
-%\begin{align}
-%\begin{split}
-%\frac{v(\mathcal{T}_h)}{v(\mathcal{X}_h)}
-%&= \frac{(1 - f_k) v(\mathcal{T}_{h-1}) + f_k \operatorname{E}\bigl[\max\{ t_k, T_{h-1}\} \bigr]}{(1 - f_k) v(\mathcal{X}_{h-1}) + f_k t_k}\\ 
-%&\geq \frac{(1 - f_k) v(\mathcal{T}_{h-1}) + f_k t_k}{(1 - f_k) v(\mathcal{X}_{h-1}) + f_k t_k} 
-%\geq \frac{(1 - f_k) v(\mathcal{T}_{h-1})}{(1 - f_k) v(\mathcal{X}_{h-1})} 
-%\geq \frac{v(\mathcal{T}_{h-1})}{v(\mathcal{X}_{h-1})} 
-%\end{split}
-%\end{align}
-%Since $v(\mathcal{T}_{h-1})$ and $v(\mathcal{X}_{h-1})$ are the na\"ive output and optimum, respectively, over $\mathcal{C} \setminus \{k\}$, this completes the proof. 
-%
-%If $k \neq l$, then 
-%Since $f_k t_k \geq f_l t_l$ and $l \in \mathcal{X}_h$, we must have $f_k < f_l$, for otherwise, $k$ trivially dominates $l$, contradicting the optimality of $\mathcal{X}_h$. Therefore
-%\begin{align}
-%\begin{split}
-%\frac{v(\mathcal{T}_h)}{v(\mathcal{X}_h)}
-%&= \frac{(1 - f_k) v(\mathcal{T}_{h-1}) + f_k \operatorname{E}\bigl[\max\{ t_k, T_{h-1}\} \bigr]}{(1 - f_l) v(\mathcal{X}_{h-1}) + f_l t_l} \geq \frac{(1 - f_k) v(\mathcal{T}_{h-1}) + f_k t_k}{(1 - f_l) v(\mathcal{X}_{h-1}) + f_l t_l} \\
-%&\geq \frac{(1 - f_l) v(\mathcal{T}_{h-1}) +  f_l t_l}{(1 - f_l) v(\mathcal{X}_{h-1}) + f_l t_l}
-%\geq  \frac{(1 - f_l) v(\mathcal{T}_{h-1})}{(1 - f_l) v(\mathcal{X}_{h-1})} \geq \theta
-%\end{split}
-%\end{align}
-%which concludes the proof. 
-%\end{proof}
-%Let $k = \argmax_{j\in \mathcal{C}} \{ t_j f_j\}$. It is obvious that $k \in \mathcal{X}_h \cap \mathcal{T}_h$. Remove $k$ from $\mathcal{C}$ and transform the $t_j$ values to $\bar t_j$ according to \eqref{howtotransformfj}. For this modified market, let $\mathcal{S}_i$ and $\mathcal{Y}_i$ denote the optimal portfolio and the output of the na\"ive algorithm, respectively, when the application limit is $i$. Let $w(\mathcal{Y})$ denote the portfolio valuation function for the modified market. By the argument given in the proof of Theorem \ref{nestedapplication}, we know that $v(\mathcal{Y}\cup\{m\}) = w(\mathcal{Y}) + t_m f_m$ and $\mathcal{Y}_{h-1} \subset \mathcal{X}_h$. That is,
-%\begin{align}
-%\begin{split}
-%\frac{v(\mathcal{T}_h)}{v(\mathcal{X}_h)}
-%= \frac{w(\mathcal{T}_{h} \setminus \{k\}) + t_k f_k}{w(\mathcal{X}_h \setminus \{k\}) + t_k f_k} 
-%= \frac{w(\mathcal{T}_{h} \setminus \{k\}) + t_k f_k}{w(\mathcal{Y}_{h-1}) + t_k f_k} 
-%\geq \frac{w(\mathcal{T}_{h} \setminus \{k\})}{w(\mathcal{Y}_{h-1})} %\geq \theta
-%\end{split}
-%\end{align}
-%
-%Now it suffices to show that $w(\mathcal{T}_{h} \setminus \{k\}) \geq w(\mathcal{S}_{h-1})$
-
-% This is a silly idea: If this were true, then the naive algorithm would be correct.
-%Now it suffices to show that $\mathcal{S}_{h-1} = \mathcal{T}_{h} \setminus \{k\}$; that is, that the transformation does not change the set comprised of the $h-1$ schools having the highest values of $f_j \bar t_j$. Suppose not; then since the transformation preserves the order of the $t_j 0
-
-%To get a contradiction, suppose that $ v(\mathcal{T}_h)/ v(\mathcal{X}_h) < 1/2$. Then by applying the observation \eqref{meanmaxsumineq} to any partitions defined by $\mathcal{X}'_h \subset \mathcal{X}_h$ and $\mathcal{Y}'_h \subset \mathcal{Y}_h$, we obtain the following inequality.
-%\begin{align}
-%&&v(\mathcal{X}_h) &> 2v(\mathcal{T}_h) & \\
-%\implies &&v(\mathcal{X}'_h)   + v(\mathcal{X}_h \setminus \mathcal{X}'_h)  &> 2v(\mathcal{T}_h) & \\
-%\implies &&v(\mathcal{X}'_h)  + v(\mathcal{X}_h \setminus \mathcal{X}'_h)  &> v(\mathcal{T}'_h) + v(\mathcal{T}_h \setminus \mathcal{T}'_h)
-%\end{align}
-%Let $k = \argmax_{j\in \mathcal{C}} \{ t_j f_j\}$. It is obvious that $k \in \mathcal{X}_h \cap \mathcal{Y}_h$, so we may take $ \mathcal{X}'_h  = \mathcal{Y}'_h = \{k\}$, which implies
-%\begin{equation}v(\mathcal{X}_h \setminus \{k\})  >  v(\mathcal{T}_h \setminus \{k\})\end{equation}
-%Remove $k$ from $\mathcal{C}$, transform the $t_j$ values according to \eqref{howtotransformfj}, and let $w(\mathcal{Y})$ denote the portfolio valuation function for the transformed market.  By the argument given in the proof of Theorem \ref{nestedapplication}, it follows that $\mathcal{Y}_h = $ is
-%For this modified market, let $\mathcal{S}_i$ and $\mathcal{Y}_i$ denote the optimal portfolio and the output of the na\"ive algorithm, respectively, when the application limit is $i$. Let $w(\mathcal{Y})$ denote the portfolio valuation function for the modified market. By the argument given in the proof of Theorem \ref{nestedapplication}, we know that $v(\mathcal{Y}\cup\{m\}) = w(\mathcal{Y}) + t_m f_m$ and $\mathcal{Y}_{h-1} \subset \mathcal{X}_h$. Because the transformation maps every $t_j$ to $t_j (1 - f_m)$, the order of the $t_j f_j$-values does not change; therefore, $\mathcal{S}_{h-1} \subset \mathcal{T}_h$.
-
-
-%Now we will show that if $w(\mathcal{S}_{h-1}) / w(\mathcal{Y}_{h-1}) \geq \theta$ for a generic market having portfolio valuation function $w(\mathcal{Y})$, where $\mathcal{S}_{h-1})$ and $w(\mathcal{Y}_{h-1})$ are the corresponding  na\"ive solution and optimum at $h-1$, then $v(\mathcal{Y}_h) / v(\mathcal{X}_h) \geq \theta $ as well. There are four cases. \newcounter{casecounter}
-%
-%\stepcounter{casecounter} \emph{Case \thecasecounter:} If $m \notin \mathcal{X}_h, m \notin \mathcal{T}_h$, then $\mathcal{X}_h$ and $ \mathcal{T}_h$ do not change if $m$ is removed from $\mathcal{C}$ at the outset. Therefore, by removing some number of schools with the highest indices from the market, we can transform this case into one of the other three.
-%
-%\stepcounter{casecounter} \emph{Case \thecasecounter:} If $m \notin \mathcal{X}_h, m \in \mathcal{T}_h$, then let $k = \argmax \{ t_j : j \in \mathcal{X}_h \}$. Since $m \in \mathcal{T}_h$, $t_m f_m > t_k f_k$, and since $t_m \geq t_k$, we must have $f_m \leq f_k$, for otherwise, $m$ trivially dominates $k$, contradicting the optimality of $\mathcal{X}_h$. Now
-%\begin{align}
-%\begin{split}
-%v(\mathcal{X}_h) &= (1 - f_k) v(\mathcal{X}_h\setminus \{k\}) + f_k t_k \\
-%&< (1 - f_m) v(\mathcal{X}_h\setminus \{k\}) + f_m t_m \\
-%&= v(\mathcal{X}_h\setminus \{k\} \cup \{m\}) 
-%\end{split}
-%\end{align}
-%which again contradicts the optimality of $\mathcal{X}_h$. 
-%
-%In the remaining two cases, we remove $m$ from $\mathcal{C}$, transform the $t_j$ values according to \eqref{howtotransformfj}. For this modified market, let $\mathcal{S}_i$ and $\mathcal{Y}_i$ denote the optimal portfolio and the output of the na\"ive algorithm, respectively, when the application limit is $i$. Let $w(\mathcal{Y})$ denote the portfolio valuation function for the modified market. By the argument given in the proof of Theorem \ref{nestedapplication}, we know that $v(\mathcal{Y}\cup\{m\}) = w(\mathcal{Y}) + t_m f_m$ and $\mathcal{Y}_{h-1} \subset \mathcal{X}_h$. Because the transformation maps every $t_j$ to $t_j (1 - f_m)$, the order of the $t_j f_j$-values does not change; therefore, $\mathcal{S}_{h-1} \subset \mathcal{T}_h$.
-%
-%\stepcounter{casecounter} \emph{Case \thecasecounter:} If $m \in \mathcal{X}_h, m \notin \mathcal{T}_h$, 
-%
-%\stepcounter{casecounter} \emph{Case \thecasecounter:} If $m \in \mathcal{X}_h, m \in \mathcal{T}_h$, then $\mathcal{S}_{h-1} = \mathcal{T}_h\setminus \{m\}$, $\mathcal{Y}_{h-1} = \mathcal{X}_h \setminus \{m\}$, and
-%\begin{align}
-%\begin{split}
-%\frac{v(\mathcal{T}_h)}{v(\mathcal{X}_h)} = \frac{w(\mathcal{S}_{h-1}) + t_m f_m}{w(\mathcal{Y}_{h-1}) + t_m f_m} 
-%\geq \frac{w(\mathcal{S}_{h-1}) }{w(\mathcal{Y}_{h-1})} \geq \theta
-%\end{split}
-%\end{align}
-%by the inductive hypothesis. 
-%\end{proof}
-
 
 
 \subsection{Additional theoretical results}
@@ -617,17 +496,7 @@ If $t_k \geq t_j$, then the steps are analogous:
 \end{align}
 \end{proof}
 
-It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio, for a given market, $v(\mathcal{X}_h)$ is $O(h)$. The following example establishes the tightness of this bound.
-
-\begin{example}
-Let $f_j = 1/2^j$ and $t_j = 1 / f_j$ for $j = 1 \dots m$. Then we claim that $\mathcal{X}_h$ consists of the $h$ schools with highest index. It can be shown that in the limit as $m \to \infty$, the value of this portfolio is 
-\begin{equation}
-v(\mathcal{X}_h) = \sum_{j= m-h +1}^m \Bigl( t_j f_j \prod_{j' = j+1}^m (1 - f_{j'}) \Bigr) =  \sum_{j= m-h +1}^m \prod_{j' = j+1}^m \bigl(1 - 1/2^j\bigr) = h
-\end{equation}
-All of the singleton portfolios have equivalent value $v(\{j\}) = 1$. Therefore, any portfolio having $v(\mathcal{X}_h) >h$ yields a contradiction to Theorem \ref{concavityinh}. The fact that $\mathcal{X}_h$ attains this upper bound proves its optimality. 
-\end{example}
-
-
+It follows that when $\mathcal{X}_h$ is the optimal $h$-portfolio, for a given market, $v(\mathcal{X}_h)$ is $O(h)$. Example \ref{tightexampleforoneoverhopt}, in which $v(\mathcal{X}_h)$ can be made arbitrarily close to $h$, establishes the tightness of this bound.
 
 To wrap up, we provide an example showing that if the entries of $Z$ are dependent, then the optimal solution may violate the nestedness property of Theorem \ref{nestedapplication}.
 \begin{example}
@@ -657,11 +526,46 @@ Ellis's optimal college application portfolio is given by the solution to the fo
 
 The optima for Ellis's problem are not necessarily nested, nor is the number of schools in the optimal portfolio necessarily increasing in $H$. For example, if
 $f = (0.5, 0.5, 0.5)$, $t = (10, 3, 2020)$, and $g = (1, 1, 3)$,
-then it is obvious that the optimal portfolio for $H = 2$ is $\{1, 2\}$ while that for $H = 3$ is $\{3\}$. 
+then it is evident that the optimal portfolio for $H = 2$ is $\{1, 2\}$ while that for $H = 3$ is $\{3\}$. 
 
-We will provide an algorithmic solution to Ellis's problem that runs in $O(Hm + m\log m)$ time and $O(m)$ space. The algorithm resembles the dynamic programming algorithm for the binary knapsack problem. Because we cannot assume that $H \leq m$ (as was the case in Alma's problem), this represents a quasipolynomial-time solution (Dantzig 1957; Garey and Johnson 1979; \emph{Wikipedia}, s.v. ``Knapsack problem'').
+In fact, Ellis’s problem is NP-complete, as we will show by a transformation from the binary knapsack problem, which is known to be NP-complete (Garey and Johnson 1979).
 
-For $j = 0 \dots m$ and $h = 0 \dots H$, let $\mathcal{X}[j, h]$ denote the optimal portfolio using only the schools $\{ 1 \dots j\}$ and costing no more than $h$, and let $V[j,h] = v(\mathcal{X}[j, h])$.  It is clear that for $j = 0\dots m$, $\mathcal{X}[j, 0] = \O$ and $V[j, 0] = 0$.  For convenience, we also define $V[j, h] = -\infty$ for all $h < 0$.
+\begin{definition}[Decision form of knapsack problem]
+An \emph{instance} consists of a set $\mathcal{B}$ of $m$ objects; utility values $u_j \in \mathbb{N}$ and weight $w_j \in \mathbb{N}$ for each $j \in \mathcal{B}$; and target utility $U\in \mathbb{N}$ and knapsack capacity $W\in \mathbb{N}$. The instance is called a \emph{yes-instance} if and only if there exists a set $\mathcal{B’} \subseteq \mathcal{B}$ having $\sum_{j \in \mathcal{B’}} u_j \geq U$ and  $\sum_{j \in \mathcal{B’}} w_j \leq W$.
+\end{definition}
+
+\begin{definition}[Decision form of Ellis’s problem]
+An \emph{instance} consists of an instance of Ellis’s problem and a target valuation $V$. The instance is called a \emph{yes-instance} if and only if there exists a portfolio $\mathcal{X} \subseteq \mathcal{C}$ having $v(\mathcal{X}) \geq V$ and  $\sum_{j \in \mathcal{X}} g_j \leq H$.
+\end{definition}
+
+\begin{theorem}
+The decision form of Ellis’s problem is NP-complete.
+\end{theorem}
+
+\begin{proof}It is obvious that the problem is in NP.
+
+Consider an instance of the knapsack problem, and we will construct an instance of Ellis’s problem that is a yes-instance if and only if the corresponding knapsack instance is a yes-instance. Without loss of generality, we may assume that the the objects in $\mathcal{B}$ are indexed in increasing order of $u_j$, that each $u_j >0$, and that the knapsack instance admits a feasible solution other than the empty set. 
+
+Let $U_{\mathrm{max}} = \sum_{j \in \mathcal{B}} u_j$ and $\delta = {1} /{m U_{\mathrm{max}}} > 0$, and construct an instance of Ellis’s problem with $\mathcal{C} = \mathcal{B}$, $H = W$, all $f_j = \delta$, and $t_j = u_j / \delta$ for all $j$. Clearly, $\mathcal{X} \subseteq \mathcal{C}$ is feasible for Ellis’s problem if and only if it is feasible for the knapsack instance. Now, we observe that if $\mathcal{X}$ is nonempty,
+\begin{align}
+\begin{split}
+\sum_{j \in \mathcal{X}} u_j &=  \sum_{j \in \mathcal{X}} t_j f_j 
+> \sum_{j \in \mathcal{X}} \Bigl( t_j f_j  \prod_{\substack{j’ \in \mathcal{X}: \\ j' > j}} (1 - f_{j’}) \Bigr)
+%= \sum_{j \in \mathcal{X}} \Bigl( u_j  \prod_{\substack{j’ \in \mathcal{X}: \\ j' > j}} (1 - \delta) \Bigr)
+= v(\mathcal{X}) \\
+&= \sum_{j \in \mathcal{X}} \Bigl( u_j  \prod_{\substack{j’ \in \mathcal{X}: \\ j' > j}} (1 - \delta) \Bigr)
+\geq (1 - \delta)^m \sum_{j \in \mathcal{X}} u_j \\
+&\geq (1 - m\delta) \sum_{j \in \mathcal{X}} u_j 
+\geq \sum_{j \in \mathcal{X}} u_j  - m\delta U_{\mathrm{max}}
+= \sum_{j \in \mathcal{X}} u_j  - 1
+\end{split}
+\end{align}
+This means that given a nonempty portfolio $\mathcal{X}$, its value for the corresponding knapsack instance is the smallest integer greater than $v( \mathcal{X})$. That is, $\sum_{j \in \mathcal{X}} u_j \geq U$ if and only if $v(\mathcal{X}) \geq U -1$. Taking $V = U-1$ completes the transformation and concludes the proof.  \end{proof}
+
+
+We will provide an algorithmic solution to Ellis's problem that runs in $O(Hm + m\log m)$ time and $O(Hm)$ space. The algorithm resembles the dynamic programming algorithm for the binary knapsack problem. Because we cannot assume that $H \leq m$ (as was the case in Alma's problem), this represents a quasipolynomial-time solution (Dantzig 1957; Garey and Johnson 1979; \emph{Wikipedia}, s.v. ``Knapsack problem'').
+
+For $j = 0 \dots m$ and $h = 0 \dots H$, let $\mathcal{X}[j, h]$ denote the optimal portfolio using only the schools $\{ 1, \dots, j\}$ and costing no more than $h$, and let $V[j,h] = v(\mathcal{X}[j, h])$.  It is clear that for $j = 0\dots m$, $\mathcal{X}[j, 0] = \O$ and $V[j, 0] = 0$.  For convenience, we also define $V[j, h] = -\infty$ for all $h < 0$.
 
 For the remaining indices, $\mathcal{X}[j, h]$ either contains $j$ or not. If it does not contain $j$, then $\mathcal{X}[j, h] = \mathcal{X}[j-1, h]$. On the other hand, if  $\mathcal{X}[j, h]$ contains $j$, then its value is $(1 - f_j) v(\mathcal{X}[j, h]\setminus \{j\}) + f_j t_j$. This requires that $\mathcal{X}[j, h]\setminus \{j\}$ make optimal use of the remaining budget over the remaining schools; that is, $\mathcal{X}[j, h] = \mathcal{X}[j-1, h - g_j] \cup\{j\}$. From these observations, we obtain the following Bellman equation for $ j = 1\dots m$ and $h = 1\dots H$:
 \begin{align}
@@ -709,10 +613,10 @@ Algorithm \ref{algorithmforhetg} produces an optimal application portfolio for E
 \end{theorem}
 
 \begin{proof}
-Optimality follows from the foregoing discussion. To prevent $V(j, h)$ from being evaluated more than once at a given index, its values can be stored in a dictionary as they are computed. The number of indices at which $V(j, h)$ is nontrivially defined is $O(Hm)$.
+Optimality follows from the foregoing discussion. Sorting by $t_j$ is $O(m \log m)$.  The number of indices at which $V(j, h)$ is nontrivially defined is $O(Hm)$. To prevent $V(j, h)$ from being evaluated more than once at a given index, its values can be stored in a dictionary as they are computed.
 \end{proof}
 
-When Algorithm \ref{algorithmforhetg} is applied to Alma's problem, with each $g_j = 1$ and $H =h$, it achieves the same time complexity as Algorithm \ref{algorithmforlargeh}. However, the latter algorithm is more effective because its space requirements are $O(m)$. 
+%When Algorithm \ref{algorithmforhetg} is applied to Alma's problem, with each $g_j = 1$ and $H =h$, it achieves the same time complexity as Algorithm \ref{algorithmforlargeh}. However, Algorithm \ref{algorithmforlargeh} is more effective because its space requirements are $O(m)$. 
 
 
 
