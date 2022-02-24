@@ -250,7 +250,7 @@ Alma's optimal college application portfolio is given by the solution to the fol
 \end{align}
 \end{definition}
 
-\ifEN \subsection{Na\"ive solution}  \else \subsection{모형화} \fi
+\ifEN \subsection{Approximation properties of a na\"ive solution}  \else \subsection{모형화} \fi
 Notice that for a given school $c_j$, the expected utility associated with applying to $c_j$ is simply $\operatorname{E}[t_j Z_j] = t_j f_j$. It is therefore tempting to adopt the following greedy strategy, which turns out to be inoptimal.
 \begin{definition}[Na\"ive algorithm for Alma’s problem] \label{naivealgorithm}
 Apply to the $h$ schools having the highest expected utility $t_j f_j$.
@@ -307,7 +307,7 @@ Thus, as $\epsilon$ approaches zero, we have $v(\mathcal{T}_h) / v(\mathcal{X}_h
 
 Hope is not lost. We can still find the optimal solution in time polynomial in $h$ and $m$, as we will now show.
 
-\ifEN \subsection{Solution}  \else \subsection{풀이} \fi
+\ifEN \subsection{Polynomial-time solution}  \else \subsection{풀이} \fi
 It turns out that the solution to Alma's problem possesses a special structure: An optimal portfolio of size $h+1$ includes an optimal portfolio of size $h$ as a subset.
 %To show this result, we need to introduce some new notation. For an application portfolio $\mathcal{X}$, the random variable $X  = \max\{ t_j Z_j : j \in \mathcal{X}\}$ represents the utility achieved by the portfolio, so that $v(\mathcal{X}) = \operatorname{E}[X]$. It is also helpful to define $\Delta v(\mathcal{X}, j)$ as the utility gained by adding $c_j$ to the portfolio $\mathcal{X}$. That is, 
 %\begin{align} \Delta v(\mathcal{X}, j) &= v(\mathcal{X} \cup \{j\})  - v(\mathcal{X}) \\
@@ -459,7 +459,7 @@ In our numerical experiments, we found it effective to store $\mathcal{C}$ as a 
 %\end{proposition}
 
 
-\subsection{Additional theoretical results}
+\subsection{Properties of the optimal portfolios}
 The nestedness property implies that Alma's expected utility is a concave function of $h$.
 
 \begin{theorem}[Optimal portfolio valuation concave in $h$] \label{concavityinh}
@@ -528,6 +528,7 @@ The optima for Ellis's problem are not necessarily nested, nor is the number of 
 $f = (0.5, 0.5, 0.5)$, $t = (10, 3, 2020)$, and $g = (1, 1, 3)$,
 then it is evident that the optimal portfolio for $H = 2$ is $\{1, 2\}$ while that for $H = 3$ is $\{3\}$. 
 
+\subsubsection{NP-completeness}
 In fact, Ellis’s problem is NP-complete, as we will show by a transformation from the binary knapsack problem, which is known to be NP-complete (Garey and Johnson 1979).
 
 \begin{definition}[Decision form of knapsack problem]
@@ -562,10 +563,10 @@ Let $U_{\mathrm{max}} = \sum_{j \in \mathcal{B}} u_j$ and $\delta = {1} /{m U_{\
 \end{align}
 This means that given a nonempty portfolio $\mathcal{X}$, its value for the corresponding knapsack instance is the smallest integer greater than $v( \mathcal{X})$. That is, $\sum_{j \in \mathcal{X}} u_j \geq U$ if and only if $v(\mathcal{X}) \geq U -1$. Taking $V = U-1$ completes the transformation and concludes the proof.  \end{proof}
 
-
+\subsubsection{Quasipolynomial-time solution}
 We will provide an algorithmic solution to Ellis's problem that runs in $O(Hm + m\log m)$ time and $O(Hm)$ space. The algorithm resembles the dynamic programming algorithm for the binary knapsack problem. Because we cannot assume that $H \leq m$ (as was the case in Alma's problem), this represents a quasipolynomial-time solution (Dantzig 1957; Garey and Johnson 1979; \emph{Wikipedia}, s.v. ``Knapsack problem'').
 
-For $j = 0 \dots m$ and $h = 0 \dots H$, let $\mathcal{X}[j, h]$ denote the optimal portfolio using only the schools $\{ 1, \dots, j\}$ and costing no more than $h$, and let $V[j,h] = v(\mathcal{X}[j, h])$.  It is clear that for $j = 0\dots m$, $\mathcal{X}[j, 0] = \O$ and $V[j, 0] = 0$.  For convenience, we also define $V[j, h] = -\infty$ for all $h < 0$.
+For $j = 0 \dots m$ and $h = 0 \dots H$, let $\mathcal{X}[j, h]$ denote the optimal portfolio using only the schools $\{ 1, \dots, j\}$ and costing no more than $h$, and let $V[j,h] = v(\mathcal{X}[j, h])$.  It is clear that if $j=0$ or $h=0$, then $\mathcal{X}[j, h] = \O$ and $V[j, h] = 0$.  For convenience, we also define $V[j, h] = -\infty$ for all $h < 0$.
 
 For the remaining indices, $\mathcal{X}[j, h]$ either contains $j$ or not. If it does not contain $j$, then $\mathcal{X}[j, h] = \mathcal{X}[j-1, h]$. On the other hand, if  $\mathcal{X}[j, h]$ contains $j$, then its value is $(1 - f_j) v(\mathcal{X}[j, h]\setminus \{j\}) + f_j t_j$. This requires that $\mathcal{X}[j, h]\setminus \{j\}$ make optimal use of the remaining budget over the remaining schools; that is, $\mathcal{X}[j, h] = \mathcal{X}[j-1, h - g_j] \cup\{j\}$. From these observations, we obtain the following Bellman equation for $ j = 1\dots m$ and $h = 1\dots H$:
 \begin{align}
@@ -580,8 +581,8 @@ with the convention that $ -\infty \cdot 0 = -\infty$. The corresponding optimal
 Index schools in ascending order by $t$\;
 \SetKwProg{Fn}{function}{ do}{end}
 \Fn{$V(j, h)$}{
-	\lIf{$j = 0$ or $h=0$}{\Return{$0$}}
-	\lElseIf{$h < g_j$}{\Return{$-\infty$}}
+	\lIf{$h < g_j$}{\Return{$-\infty$}}
+	\lElseIf{$j = 0$ or $h=0$}{\Return{$0$}}
 	\lElse{\Return{$\max\bigl\{ V(j-1, h), (1 - f_j) V(j-1, h-g_j) + f_j t_j \bigr\}$}}
 }
 %\lFor{$j=1\dots m$}
